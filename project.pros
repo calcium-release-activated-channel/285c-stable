@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "285C_2023-2024_SU",
+        "project_name": "285C_2023-2024_OU",
         "target": "v5",
         "templates": {
             "kernel": {

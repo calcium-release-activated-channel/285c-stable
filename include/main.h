@@ -39,7 +39,8 @@
 /**
  * You should add more #includes here
  */
-//#include "okapi/api.hpp"
+#include "okapi/api.hpp"
+#include "pros/apix.h"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -51,7 +52,7 @@
  */
 // using namespace pros;
 // using namespace pros::literals;
-// using namespace okapi;
+using namespace okapi;
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
@@ -61,11 +62,43 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void autonomous(void);
-void initialize(void);
-void disabled(void);
-void competition_initialize(void);
-void opcontrol(void);
+
+#define driveSetting AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees
+
+extern int autMode;
+
+extern Controller controller;
+
+extern ControllerButton cataBtn;
+extern ControllerButton intakeBtn;
+extern ControllerButton outtakeBtn;
+extern ControllerButton endgameBtn;
+
+extern Motor driveLF;
+extern Motor driveLB;
+extern Motor driveRF;
+extern Motor driveRB;
+extern Motor shiftL;
+extern Motor shiftR;
+
+extern Motor cata;
+extern Motor intake;
+
+extern pros::adi::DigitalIn cataStop;
+extern pros::adi::DigitalIn autonSelector;
+extern pros::adi::DigitalOut shiftSolenoid;
+
+extern MotorGroup driveL;
+extern MotorGroup driveR;
+extern MotorGroup endgame;
+
+extern std::shared_ptr<ChassisController> drive;
+
+void autonomous();
+void initialize();
+void disabled();
+void competition_initialize();
+void opcontrol();
 #ifdef __cplusplus
 }
 #endif
