@@ -12,36 +12,43 @@ If the version is higher than Version 1.1 (7/11/2023), please let me know so we 
   <summary><h2>Commonly Referenced Images</h2></summary>
 
 ### Field, Match
+
 ![](images/field.png)
 
 <br>
 
 ### Starting Tiles
+
 ![](images/starting_tiles.png)
 
 <br>
 
 ### Field, Skills
+
 ![](images/field_skills.png)
 
 <br>
 
 ### Field Element Reference Lengths
+
 ![](images/field_element_length.png)
 
 <br>
 
 ### Neutral Zones
+
 ![](images/auton_neutral_zones.png)
 
 <br>
 
 ### Offensive Zones
+
 ![](images/offensive_zones.png)
 
 <br>
 
 ### Breakdown of Double Zoning
+
 <table>
    <tr>
       <td><h4><strong>No one is double zoning. </strong><br>One bot is on each half of the map.</h4></td>
@@ -66,34 +73,38 @@ If the version is higher than Version 1.1 (7/11/2023), please let me know so we 
   <summary><h2>Game Manual Changes</h2></summary>
 
 ### Version 1.1 - July 11, 2023
-> * Added VEX U Robot Rules
+
+> - Added VEX U Robot Rules
 
 ### Version 1.0 - June 27, 2023
-> * Updated point 1b in the definition of Elevated to state that a Robot must be contacting any portion of the Barrier that is on their Alliance’s side of the Neutral Zone
-> * Added point 4 to the definition of Elevated to state that a Robot may not be contacting an Alliance partner Robot that is not considered Elevated
-> * Added a note to \<SC7> to clarify intent
-> * Added a note to \<SG1> and \<RSC2e> to clarify that the Triballs beginning in Match Load Zones may be repositioned by Teams. The note in \<G9> was also updated to reflect this change
-> * Revised \<SG3> to state that any Triballs that leave the field will be returned to the nearest Match Load Zone
-> * Added a Violation note to \<SG9> to clarify intent
-> * Added \<SG11d>, stating that Robots may not contact the Short Barriers adjacent to the opposing Alliance’s Elevation Bars during the last thirty (30) seconds of the Match
-> * Updated \<T9> to provide clarity regarding when Time Outs may be used
-> * Updated \<T10> to provide a Goal height tolerance, and to provide further clarity
-> * Added a Violation note to \<RSC1> to clarify intent
-> * Added Appendix C for VEX U
-> * Minor typo / formatting fixes 
+
+> - Updated point 1b in the definition of Elevated to state that a Robot must be contacting any portion of the Barrier that is on their Alliance’s side of the Neutral Zone
+> - Added point 4 to the definition of Elevated to state that a Robot may not be contacting an Alliance partner Robot that is not considered Elevated
+> - Added a note to \<SC7> to clarify intent
+> - Added a note to \<SG1> and \<RSC2e> to clarify that the Triballs beginning in Match Load Zones may be repositioned by Teams. The note in \<G9> was also updated to reflect this change
+> - Revised \<SG3> to state that any Triballs that leave the field will be returned to the nearest Match Load Zone
+> - Added a Violation note to \<SG9> to clarify intent
+> - Added \<SG11d>, stating that Robots may not contact the Short Barriers adjacent to the opposing Alliance’s Elevation Bars during the last thirty (30) seconds of the Match
+> - Updated \<T9> to provide clarity regarding when Time Outs may be used
+> - Updated \<T10> to provide a Goal height tolerance, and to provide further clarity
+> - Added a Violation note to \<RSC1> to clarify intent
+> - Added Appendix C for VEX U
+> - Minor typo / formatting fixes
 
 ### Version 0.2 - June 13, 2023
-> * Updated the definition of Elevation Tier to clarify that Robots must be “fully above the white line” of the Height Guide to receive credit for that Elevation Tier
-> * Added a note to \<SC3>, clarifying that a Triball Scored in a Goal is not also considered Scored in that Goal’s Offensive Zone
-> * Revised the note in \<SG5> to clarify that the net cannot be lifted to score / de-score
-> * Updated \<T5> to include Autonomous Win Points
-> * Updated \<T8> to clarify that a Team that receives a Disqualification in a Qualification Match also receives a score of (0) for the Match
-> * Added an REC Library article link to \<R7> to provide clarity
-> * Updated Robot Skills Challenge Ranking 9a to Number of Triballs Scored in Goals
-> * Minor typo / formatting fixes
+
+> - Updated the definition of Elevation Tier to clarify that Robots must be “fully above the white line” of the Height Guide to receive credit for that Elevation Tier
+> - Added a note to \<SC3>, clarifying that a Triball Scored in a Goal is not also considered Scored in that Goal’s Offensive Zone
+> - Revised the note in \<SG5> to clarify that the net cannot be lifted to score / de-score
+> - Updated \<T5> to include Autonomous Win Points
+> - Updated \<T8> to clarify that a Team that receives a Disqualification in a Qualification Match also receives a score of (0) for the Match
+> - Added an REC Library article link to \<R7> to provide clarity
+> - Updated Robot Skills Challenge Ranking 9a to Number of Triballs Scored in Goals
+> - Minor typo / formatting fixes
 
 ### Version 0.1 - April 29, 2023
-> * Initial Release
+
+> - Initial Release
 
 </details>
 
@@ -139,7 +150,9 @@ prosv5 upload
 
 ## 3. Run the code
 
-On the controller
+1. On the controller, using arrow keys to scroll, select the `Programs` tab.
+2. Scroll until you select the program you just uploaded.
+3. Press the `A` button to run the program.
 
 # Contributing
 
