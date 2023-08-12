@@ -63,8 +63,8 @@ If the version is higher than Version 1.1 (7/11/2023), please let me know so we 
       <td><h4><strong>Red is double zoning. </strong><br>Both red bots are in the blue offensive zone.</h4></td>
    </tr>
    <tr>
-      <td><img src="images/double_zoned_red_A.png"></td>
       <td><img src="images/double_zoned_red_B.png"></td>
+      <td><img src="images/double_zoned_red_A.png"></td>
    </tr>
 </table>
 
