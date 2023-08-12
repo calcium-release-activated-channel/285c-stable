@@ -67,7 +67,7 @@ MotorGroup endgame({shiftL, shiftR});
 // drive
 std::shared_ptr<ChassisController> drive = okapi::ChassisControllerBuilder()
                                                .withMotors(driveL, driveR)
-                                               .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 13_in}, imev5GreenTPR})  // 4 inch wheels, 13 inch track width, where track width refers to the distance between the left and right wheels measured from the centers of the wheels
+                                               .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 12_in}, imev5GreenTPR})  // 4 inch wheels, 13 inch track width, where track width refers to the distance between the left and right wheels measured from the centers of the wheels
                                                .withMaxVelocity(200)
                                                .build();
 
@@ -80,7 +80,6 @@ std::shared_ptr<ChassisController> drive = okapi::ChassisControllerBuilder()
 void initialize() {
     driveL.setBrakeMode(AbstractMotor::brakeMode::coast);
     driveR.setBrakeMode(AbstractMotor::brakeMode::coast);
-
 }
 
 /**
