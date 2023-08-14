@@ -6,11 +6,14 @@ The purpose of the file is to have a centralized place for programming notes tha
 
 _[write stuff here]_
 
+## to be tested
+- auton selector
+
 ## drive details
 
 - 300 rpm, 6m drive, green cartridge, 4" wheel
 - MotorL {motor1, motor2, motor3}
-- MotorR {motor16, motor17, motor18}
+- MotorR {motor11, motor12, motor13}
 - default is clockwise
 - left drive needs to be counterclockwise
 - right drive needs to be clockwise

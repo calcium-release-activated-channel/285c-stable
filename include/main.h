@@ -73,6 +73,7 @@ extern ControllerButton cataBtn;
 extern ControllerButton intakeBtn;
 extern ControllerButton outtakeBtn;
 extern ControllerButton endgameBtn;
+extern ControllerButton wingsBtn;
 
 extern Motor driveLF;
 extern Motor driveLB;
@@ -87,6 +88,8 @@ extern Motor intake;
 extern pros::adi::DigitalIn cataStop;
 extern pros::adi::DigitalIn autonSelector;
 extern pros::adi::DigitalOut shiftSolenoid;
+extern pros::adi::DigitalOut wingsSolenoid;
+// extern pros::adi::DigitalOut sweepSolenoid;
 
 extern MotorGroup driveL;
 extern MotorGroup driveR;
@@ -99,6 +102,42 @@ void initialize();
 void disabled();
 void competition_initialize();
 void opcontrol();
+
+/**
+ * @brief Class for a PID controller.
+ */
+class PID {
+   private:
+    double kP;             /** Proportional constant */
+    double kI;             /** Integral constant */
+    double kD;             /** Derivative constant */
+    double IconstrainLow;  /** Lowest acceptable integral value */
+    double IconstrainHigh; /** Highest acceptable integral value */
+    double prevError;      /** Previous distance to target*/
+    uint32_t prevTime;     /** Previous time measured*/
+
+   public:
+    /**
+     * @brief Constructor for PID class. Tune your PID constants here.
+     * @param kP Proportional gain
+     * @param kI Integral gain
+     * @param kD Derivative gain
+     */
+    PID(double kP, double kI, double kD, double IconstrainLow, double IconstrainHigh);
+    /**
+     * @brief Function to call to calculate the output of the PID controller.
+     * @param new_target The desired value
+     * @param new_current The current value
+     * @return The output of the PID controller
+     */
+    double calculatePID(double new_target, double new_current);
+    /**
+     * @brief Destroy the PID object
+     *
+     */
+    ~PID();
+};
+
 #ifdef __cplusplus
 }
 #endif
@@ -107,7 +146,7 @@ void opcontrol();
 /**
  * You can add C++-only headers here
  */
-//#include <iostream>
+// #include <iostream>
 #endif
 
 #endif  // _PROS_MAIN_H_

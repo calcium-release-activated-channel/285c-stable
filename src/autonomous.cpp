@@ -69,4 +69,6 @@ void loadZoneAndBar() {}
 // Score Goal + Bar
 void scoreGoalAndBar() {}
 
+void driveStraight(){}
+
 #endif
