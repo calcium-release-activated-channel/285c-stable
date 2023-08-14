@@ -72,6 +72,14 @@ If the version is higher than Version 1.1 (7/11/2023), please let me know so we 
 <details>
   <summary><h2>Game Manual Changes</h2></summary>
 
+### Version 2.0 - August 1, 2023
+ > - Updated \<G8> to clarify the legality of items brought to the field by Drive Team Members
+ > - Updated \<R22a> and added a note to clarify pneumatic reservoir legality
+ > - Updated \<T1e> to clarify that a Head Referee may only watch one Match at a time
+ > - Updated \<T11> to address using PVC to replace a damaged section of a Goal
+ > - Updated figure 41 to fix the position of misaligned Triballs
+ > - Minor typo / formatting fixes
+
 ### Version 1.1 - July 11, 2023
 
 > - Added VEX U Robot Rules
