@@ -95,10 +95,10 @@ void driveStraight(int target) {  // adjust for differences in friction
  */
 void autonTest() {
     double kP = 0.6, kI = 1.2, kD = 0.0075, Ibound = 1000, outBound = 12000;
-    PID autonL(kP, kI, kD, Ibound, outBound), autonR(kP, kI, kD, Ibound, outBound);
-    PIDdriveStraight(6000, autonL, autonR);  // drive straight at half speed (12000
+    PID autonL(PID_AUT_OPT), autonR(PID_AUT_OPT);
+    PIDdriveStraight(6000, PID_AUT_DRV);  // drive straight at half speed (12000
     pros::delay(1000);
-    PIDdriveStraight(0, autonL, autonR);  // stop
+    PIDdriveStraight(0, PID_AUT_DRV);  // stop
 }
 void PIDdriveStraight(int target, PID PIDcontrollerL, PID PIDcontrollerR) {
     PIDcontrollerL.setTarget(target);  // in this case, units are voltage

@@ -4,9 +4,9 @@ Hosts 285C's code for Over Under
 
 # Game Details
 
-Latest version of the [Over Under Game Manual](https://link.vex.com/docs/23-24/vrc-over-under/GameManual)
+Get the latest version of the [Over Under Game Manual](https://link.vex.com/docs/23-24/vrc-over-under/GameManual)
 
-If the version is higher than Version 1.1 (7/11/2023), please let me know so we can review the changes.
+If the version is higher than Version 2.0 (8/1/2023), please let me know so we can review the changes.
 
 <details>
   <summary><h2>Commonly Referenced Images</h2></summary>

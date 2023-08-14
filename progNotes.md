@@ -11,6 +11,10 @@ _[write stuff here]_
 - discuss sensor utilization
 - discuss PID utilization
 - ok ive implemented PID but how do i use it ????
+- discuss braking behavior preferences in initialize and autonomous
+    - coast = set speed to 0, but do nothing later
+    - brake = short the wires so the motor resists moving, but do nothing later
+    - hold = use PID to actively set the motor to not move
 
 ## drive details
 
