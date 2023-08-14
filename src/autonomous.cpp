@@ -69,24 +69,37 @@ void loadZoneAndBar() {}
 // Score Goal + Bar
 void scoreGoalAndBar() {}
 
+/**
+ * @brief Synnchronous drive function that corrects for differences in friction
+ * @param target The target voltage to drive at, [-12000, 12000]
+ */
 void driveStraight(int target) {  // adjust for differences in friction
     int leftAdj = 0;
     int rightAdj = 0;
-    drive->getModel()->tank(target + leftAdj, target + rightAdj);
+    driveL.moveVoltage(target + leftAdj);
+    driveR.moveVoltage(target + rightAdj);
 }
 
-/* Sample PID usage
-void sampleFunction() {
-    pros::adi::AnalogIn pos('H');
-    PID auton(0.6, 1.2, 0.0075, 1000);
-    int target = 1000;
-    auton.setTarget(target); // in this case, units are voltage
-    while (pos.get_value() != target) {
-        driveStraight(auton.calculatePID(pos.get_value()));
+/* Sample PID usage in autonomous:
+ * Remember, class operations MUST be called within functions!
+ * Voltage controls also bypass the internal VEX PID controller.
+ * ---
+ * In this function, the one drive targets the desired voltage, while
+ * the other drive targets the first drive's voltage. This is to ensure
+ * that the robot drives straight using PID.
+ * ---
+ * THIS IS UNTESTED CODE.
+ */
+void PIDdriveStraight(int target) {
+    double kP = 0.6, kI = 1.2, kD = 0.0075, Ibound = 1000, outBound = 12000;
+    PID autonL(kP, kI, kD, Ibound, outBound), autonR(kP, kI, kD, Ibound, outBound);
+    autonL.setTarget(target); // in this case, units are voltage
+    while (driveL.getVoltage() != target) {
+        driveL.moveVoltage((int)autonL.calculatePID(driveL.getVoltage()));
+        autonR.setTarget(driveL.getVoltage());
+        driveR.moveVoltage((int)autonR.calculatePID(driveR.getVoltage()));
     }
-    pros::delay(1000);
-    drive->getModel()->tank(0, 0);
 }
-*/
+
 
 #endif

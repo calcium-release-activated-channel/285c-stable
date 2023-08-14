@@ -9,5 +9,7 @@ void loadZone();
 void scoreGoal();
 void loadZoneAndBar();
 void scoreGoalAndBar();
+void driveStraight(int target);
+void PIDdriveStraight(int target);
 
 #endif
