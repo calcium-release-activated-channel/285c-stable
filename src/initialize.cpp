@@ -9,7 +9,8 @@ const std::vector<std::string> autonModes = {
     "Load Zone",
     "Score Goal",
     "Load Zone + Bar",
-    "Score Goal + Bar"};
+    "Score Goal + Bar",
+    "Auton Dev Test"};
 int autMode = 0;
 
 /*** BEGIN PORTS AND CONTROLLER DECLARATIONS ***/
@@ -104,6 +105,7 @@ void initialize() {
  */
 void disabled() {
     controller.setText(0,0,"Disabled :/");
+    controller.rumble(". . . ---"); // code blue
 }
 
 /**

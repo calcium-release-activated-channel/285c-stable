@@ -45,6 +45,9 @@ void autonomous() {
         case 5:
             scoreGoalAndBar();
             break;
+        case 6:
+            autonTest();
+            break;
         default:
             noAuton();
             break;
@@ -90,16 +93,21 @@ void driveStraight(int target) {  // adjust for differences in friction
  * ---
  * THIS IS UNTESTED CODE.
  */
-void PIDdriveStraight(int target) {
+void autonTest() {
     double kP = 0.6, kI = 1.2, kD = 0.0075, Ibound = 1000, outBound = 12000;
     PID autonL(kP, kI, kD, Ibound, outBound), autonR(kP, kI, kD, Ibound, outBound);
-    autonL.setTarget(target); // in this case, units are voltage
+    PIDdriveStraight(6000, autonL, autonR);  // drive straight at half speed (12000
+    pros::delay(1000);
+    PIDdriveStraight(0, autonL, autonR);  // stop
+}
+void PIDdriveStraight(int target, PID PIDcontrollerL, PID PIDcontrollerR) {
+    PIDcontrollerL.setTarget(target);  // in this case, units are voltage
     while (driveL.getVoltage() != target) {
-        driveL.moveVoltage((int)autonL.calculatePID(driveL.getVoltage()));
-        autonR.setTarget(driveL.getVoltage());
-        driveR.moveVoltage((int)autonR.calculatePID(driveR.getVoltage()));
+        driveL.moveVoltage((int)PIDcontrollerL.calculatePID(driveL.getVoltage()));
+        PIDcontrollerR.setTarget(driveL.getVoltage());
+        driveR.moveVoltage((int)PIDcontrollerR.calculatePID(driveR.getVoltage()));
+        pros::delay(20);
     }
 }
-
 
 #endif
