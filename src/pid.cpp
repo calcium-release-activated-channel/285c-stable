@@ -3,29 +3,25 @@
 
 #include "main.h"
 
-PID::PID(double kP, double kI, double kD, double IconstrainLow, double IconstrainHigh) {
+PID::PID(double kP, double kI, double kD, double Ibound) {
     this->kP = kP;
     this->kI = kI;
     this->kD = kD;
-    this->IconstrainLow = IconstrainLow;
-    this->IconstrainHigh = IconstrainHigh;
+    this->Ibound = Ibound;
 }
 
-double PID::calculatePID(double new_target, double new_current) {
+void PID::setTarget(double new_target) {
+    this->target = new_target;
+}
+
+double PID::calculatePID(double new_current) {
     uint32_t time = pros::millis();
-    double target = new_target;
     double current = new_current;
-    double error = target - current;
-    double integral;
-    if (error < IconstrainLow) { // to prevent integral windup
-        integral = IconstrainLow;
-    }
-    else if (error > IconstrainHigh) { // to prevent integral windup
-        integral = IconstrainHigh;
-    }
-    else {
-        integral = (error == 0) ? 0 : integral + error * time;  // to prevent error overshoot (DISABLE FOR STUFF THAT NEEDS TO HOLD POSITION)
-    }
+    double error = this->target - current;
+    double integral = integral + error * time;
+    integral = (error == 0 || abs(integral) > Ibound) ? 0 : integral;
+    // ibound to filter absurdly large/useless integral values
+    // error=0 to prevent error overshoot (DISABLE FOR STUFF THAT NEEDS TO HOLD POSITION)
     double derivative = (error - prevError) / (time - prevTime);
     double output = kP * error + kI * integral - kD * derivative;
     this->prevError = error;

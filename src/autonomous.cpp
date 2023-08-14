@@ -69,6 +69,24 @@ void loadZoneAndBar() {}
 // Score Goal + Bar
 void scoreGoalAndBar() {}
 
-void driveStraight(){}
+void driveStraight(int target) {  // adjust for differences in friction
+    int leftAdj = 0;
+    int rightAdj = 0;
+    drive->getModel()->tank(target + leftAdj, target + rightAdj);
+}
+
+/* Sample PID usage
+void sampleFunction() {
+    pros::adi::AnalogIn pos('H');
+    PID auton(0.6, 1.2, 0.0075, 1000);
+    int target = 1000;
+    auton.setTarget(target); // in this case, units are voltage
+    while (pos.get_value() != target) {
+        driveStraight(auton.calculatePID(pos.get_value()));
+    }
+    pros::delay(1000);
+    drive->getModel()->tank(0, 0);
+}
+*/
 
 #endif

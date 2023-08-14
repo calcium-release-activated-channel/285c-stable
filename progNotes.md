@@ -6,8 +6,11 @@ The purpose of the file is to have a centralized place for programming notes tha
 
 _[write stuff here]_
 
-## to be tested
-- auton selector
+## to do
+- test auton selector
+- discuss sensor utilization
+- discuss PID utilization
+- ok ive implemented PID but how do i use it ????
 
 ## drive details
 

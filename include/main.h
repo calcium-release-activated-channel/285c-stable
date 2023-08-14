@@ -108,13 +108,13 @@ void opcontrol();
  */
 class PID {
    private:
-    double kP;             /** Proportional constant */
-    double kI;             /** Integral constant */
-    double kD;             /** Derivative constant */
-    double IconstrainLow;  /** Lowest acceptable integral value */
-    double IconstrainHigh; /** Highest acceptable integral value */
-    double prevError;      /** Previous distance to target*/
-    uint32_t prevTime;     /** Previous time measured*/
+    double kP;         /** Proportional constant */
+    double kI;         /** Integral constant */
+    double kD;         /** Derivative constant */
+    double Ibound;     /** Range of acceptable integral values */
+    double target;     /** The desired value */
+    double prevError;  /** Previous distance to target*/
+    uint32_t prevTime; /** Previous time measured*/
 
    public:
     /**
@@ -122,15 +122,20 @@ class PID {
      * @param kP Proportional gain
      * @param kI Integral gain
      * @param kD Derivative gain
+     * @param Ibound Range of acceptable integral values
      */
-    PID(double kP, double kI, double kD, double IconstrainLow, double IconstrainHigh);
+    PID(double kP, double kI, double kD, double Ibound);
+    /**
+     * @brief Function to call to set the target of the PID controller.
+     * @param new_target The new target
+     */
+    void setTarget(double new_target);
     /**
      * @brief Function to call to calculate the output of the PID controller.
-     * @param new_target The desired value
      * @param new_current The current value
      * @return The output of the PID controller
      */
-    double calculatePID(double new_target, double new_current);
+    double calculatePID(double new_current);
     /**
      * @brief Destroy the PID object
      *
