@@ -6,11 +6,11 @@
 const std::vector<std::string> autonModes = {
     "No Autonomous",
     "Elevation Bar",
-    "Load Zone",
-    "Score Goal",
-    "Load Zone + Bar",
-    "Score Goal + Bar",
-    "Auton Dev Test"};
+    "Load Zone    ",
+    "Score Goal   ",
+    "LoadZone+Bar ",
+    "ScoreGoal+Bar",
+    "Auton DevTest"};
 int autMode = 0;
 
 /*** BEGIN PORTS AND CONTROLLER DECLARATIONS ***/
@@ -118,14 +118,15 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
-    controller.setText(0, 0, "Auton Mode:");
-    controller.setText(1, 0, autonModes[autMode]);
+    pros::delay(100);
+    controller.setText(0, 0, autonModes[autMode]);
     while (true) {
         if (autonSelector.get_new_press()) {
             controller.rumble(".");
-            autMode = autMode < (int)autonModes.size() ? autMode + 1 : 0;
-            controller.clearLine(1);
-            controller.setText(1, 0, autonModes[autMode]);
+            autMode = autMode < (int)autonModes.size() - 1 ? autMode + 1 : 0;
+            controller.clearLine(0);
+            pros::delay(50);
+            controller.setText(0, 0, autonModes[autMode]);
         }
         pros::delay(20);
     }

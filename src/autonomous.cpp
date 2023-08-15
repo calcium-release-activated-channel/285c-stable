@@ -94,7 +94,11 @@ void driveStraight(int target) {  // adjust for differences in friction
  * THIS IS UNTESTED CODE.
  */
 void autonTest() {
-    double kP = 0.6, kI = 1.2, kD = 0.0075, Ibound = 1000, outBound = 12000;
+    double kP = 0.6,
+           kI = 1.2,
+           kD = 0.0075,
+           Ibound = 1000,
+           outBound = 12000;
     PID autonL(PID_AUT_OPT), autonR(PID_AUT_OPT);
     PIDdriveStraight(6000, PID_AUT_DRV);  // drive straight at half speed (12000
     pros::delay(1000);

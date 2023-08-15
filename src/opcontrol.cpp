@@ -20,13 +20,10 @@
  */
 void opcontrol() {
     // battery warning
-    controller.clear();
     if (pros::battery::get_capacity() < 30 || controller.getBatteryLevel() < 30) {
         controller.rumble("..");
         controller.setText(0, 2, "Battery Low!");
     }
-    controller.setText(1, 1, "Robot |Control");
-    controller.setText(2, 2, std::to_string((int)pros::battery::get_capacity()) + "%  |  " + std::to_string(controller.getBatteryLevel()) + "%");
     // define opcontrol vars
     wingsDeployed = false;
     // run task(s)
