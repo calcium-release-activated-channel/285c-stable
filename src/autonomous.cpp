@@ -77,41 +77,14 @@ void scoreGoalAndBar() {}
  * @param target The target voltage to drive at, [-12000, 12000]
  */
 void driveStraight(int target) {  // adjust for differences in friction
-    int leftAdj = 0;
-    int rightAdj = 0;
-    driveL.moveVoltage(target + leftAdj);
-    driveR.moveVoltage(target + rightAdj);
+    int leftAdj = 1,
+        rightAdj = 1;
+    driveL.moveVoltage(target * leftAdj);
+    driveR.moveVoltage(target * rightAdj);
 }
 
-/* Sample PID usage in autonomous:
- * Remember, class operations MUST be called within functions!
- * Voltage controls also bypass the internal VEX PID controller.
- * ---
- * In this function, the one drive targets the desired voltage, while
- * the other drive targets the first drive's voltage. This is to ensure
- * that the robot drives straight using PID.
- * ---
- * THIS IS UNTESTED CODE.
- */
 void autonTest() {
-    double kP = 2,
-           kI = 0.0055,
-           kD = 0.5,
-           Ibound = 3000,
-           outBound = 12000;
-    PID auton(PID_AUT_OPT);
-    PIDdriveStraight(6000, auton);  // drive straight at half speed (12000
-    pros::delay(1000);
-    PIDdriveStraight(0, auton);  // stop
-}
-void PIDdriveStraight(int target, PID PIDcontroller) {
-    PIDcontroller.setTarget(target);  // in this case, units are voltage
-    while (driveR.getVoltage() != target) {
-        int voltage = (int)PIDcontroller.calculatePID(driveR.getVoltage());
-        driveL.moveVoltage(voltage*1.05);
-        driveR.moveVoltage(voltage);
-        pros::delay(20);
-    }
+    drive->getModel()->tank(0, 0);
 }
 
 #endif
