@@ -72,30 +72,35 @@ extern Controller controller;
 extern ControllerButton cataBtn;
 extern ControllerButton intakeBtn;
 extern ControllerButton outtakeBtn;
-extern ControllerButton endgameBtn;
+extern ControllerButton ptoBtn;
 extern ControllerButton wingsBtn;
 
 extern Motor driveLF;
 extern Motor driveLB;
 extern Motor driveRF;
 extern Motor driveRB;
-extern Motor shiftL;
-extern Motor shiftR;
 
-extern Motor cata;
+extern Motor ptoFullL;
+extern Motor ptoHalfL;
+extern Motor ptoFullR;
+extern Motor ptoHalfR;
+
 extern Motor intake;
 
-extern pros::adi::DigitalIn cataStop;
 extern pros::adi::DigitalIn autonSelector;
-extern pros::adi::DigitalOut shiftSolenoid;
+extern pros::adi::DigitalOut ptoSolenoid;
 extern pros::adi::DigitalOut wingsSolenoid;
 // extern pros::adi::DigitalOut sweepSolenoid;
+extern pros::adi::DigitalOut lowHangSolenoid;
 
 extern MotorGroup driveL;
 extern MotorGroup driveR;
-extern MotorGroup endgame;
+extern MotorGroup ptoGroup;
+extern MotorGroup ptoHalfGroup;
+extern MotorGroup ptoFullGroup;
 
-extern std::shared_ptr<ChassisController> drive;
+extern std::shared_ptr<ChassisController> drive4;
+extern std::shared_ptr<ChassisController> drive7;
 
 void autonomous();
 void initialize();

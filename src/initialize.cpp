@@ -19,7 +19,7 @@ ControllerButton cataBtn = ControllerDigital::L1;
 ControllerButton wingsBtn = ControllerDigital::L2;
 ControllerButton intakeBtn = ControllerDigital::R1;
 ControllerButton outtakeBtn = ControllerDigital::R2;
-ControllerButton endgameBtn = ControllerDigital::A;
+ControllerButton ptoBtn = ControllerDigital::A;
 
 // ports
 // drive motors
@@ -29,21 +29,20 @@ int8_t driveRFPort = 11;
 int8_t driveRBPort = 12;
 
 // transmission motors
-int8_t shiftLPort = 3;
-int8_t shiftRPort = 13;
+int8_t ptoFullLPort = 3;
+int8_t ptoHalfLPort = 4;
+int8_t ptoFullRPort = 13;
+int8_t ptoHalfRPort = 14;
 
 // intake motor
 int8_t intakePort = 4;
 
-// cata motor
-int8_t cataPort = 5;
-
 // sensors (implicit conversion)
-uint8_t cataStopPort = 'A'; // might remove with cata redesign
 uint8_t autonSelectorPort = 'B';
-uint8_t shiftSolenoidPort = 'C';
+uint8_t ptoSolenoidPort = 'C';
 uint8_t wingsSolenoidPort = 'D';
 // uint8_t sweepSolenoidPort = 'E';
+uint8_t lowHangSolenoidPort = 'F';
 /*** END PORTS AND CONTROLLER DECLARATIONS ***/
 
 // controller
@@ -54,34 +53,43 @@ Motor driveLF(driveLFPort, true, driveSetting);
 Motor driveLB(driveLBPort, true, driveSetting);
 Motor driveRF(driveRFPort, false, driveSetting);
 Motor driveRB(driveRBPort, false, driveSetting);
-Motor shiftL(shiftLPort, false, driveSetting);
-Motor shiftR(shiftRPort, true, driveSetting);
-Motor cata(cataPort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
+
+#define TO_BE_DESIGNED true
+
+Motor ptoFullL(ptoFullLPort, TO_BE_DESIGNED, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
+Motor ptoHalfL(ptoHalfLPort, TO_BE_DESIGNED, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor ptoFullR(ptoFullRPort, TO_BE_DESIGNED, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
+Motor ptoHalfR(ptoHalfRPort, TO_BE_DESIGNED, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+
 Motor intake(intakePort, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 
 // sensors
-pros::adi::DigitalIn cataStop(cataStopPort);
 pros::adi::DigitalIn autonSelector(autonSelectorPort);
 
 // solenoid
-pros::adi::DigitalOut shiftSolenoid(shiftSolenoidPort);
+pros::adi::DigitalOut ptoSolenoid(ptoSolenoidPort);
 pros::adi::DigitalOut wingsSolenoid(wingsSolenoidPort);
 // pros::adi::DigitalOut sweepSolenoid(sweepSolenoidPort);
+pros::adi::DigitalOut lowHangSolenoid(lowHangSolenoidPort);
 
 // motor groups
-MotorGroup driveL({driveLF, driveLB, shiftL});
-MotorGroup driveR({driveRF, driveRB, shiftR});
-MotorGroup endgame({shiftL, shiftR});
-// in case we go back to 4 motor drive
-// MotorGroup driveL({driveLF, driveLB});
-// MotorGroup driveR({driveRF, driveRB});
+MotorGroup driveL({driveLF, driveLB});
+MotorGroup driveR({driveRF, driveRB});
+MotorGroup ptoGroup({ptoFullL, ptoFullR, ptoHalfL, ptoHalfR});
+MotorGroup ptoHalfGroup({ptoHalfL, ptoHalfR});
+MotorGroup ptoFullGroup({ptoFullL, ptoFullR});
 
 // drive
-std::shared_ptr<ChassisController> drive = okapi::ChassisControllerBuilder()
-                                               .withMotors(driveL, driveR)
-                                               .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 12_in}, imev5GreenTPR})  // 4 inch wheels, 12 inch track width, where track width refers to the distance between the left and right wheels measured from the centers of the wheels
-                                               .withMaxVelocity(200)
-                                               .build();
+std::shared_ptr<ChassisController> drive4 = okapi::ChassisControllerBuilder()
+                                                .withMotors(driveL, driveR)
+                                                .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 12_in}, imev5GreenTPR})  // 4 inch wheels, 12 inch track width, where track width refers to the distance between the left and right wheels measured from the centers of the wheels
+                                                .withMaxVelocity(200)
+                                                .build();
+std::shared_ptr<ChassisController> drive7 = okapi::ChassisControllerBuilder()
+                                                .withMotors(driveL, driveR, ptoGroup)
+                                                .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 12_in}, imev5GreenTPR})  // this may cause issues
+                                                .withMaxVelocity(200)
+                                                .build();
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -90,10 +98,10 @@ std::shared_ptr<ChassisController> drive = okapi::ChassisControllerBuilder()
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    driveL.setBrakeMode(AbstractMotor::brakeMode::coast);
-    driveR.setBrakeMode(AbstractMotor::brakeMode::coast);
+    driveL.setBrakeMode(AbstractMotor::brakeMode::brake);
+    driveR.setBrakeMode(AbstractMotor::brakeMode::brake);
     // idk if i have to retract pneumatics but just in case ig
-    shiftSolenoid.set_value(false);
+    ptoSolenoid.set_value(false);
     wingsSolenoid.set_value(false);
     // sweepSolenoid.set_value(false);
 }
@@ -103,10 +111,7 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {
-    controller.setText(0,0,"Disabled :/");
-    controller.rumble(". . . ---"); // code blue
-}
+void disabled() {}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field

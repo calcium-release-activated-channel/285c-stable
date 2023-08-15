@@ -22,11 +22,13 @@
 void opcontrol() {
     // battery warning
     if ((int)pros::battery::get_capacity() < 30 || controller.getBatteryLevel() < 30) {
-        controller.rumble("..");
+        controller.rumble(".");
+        pros::delay(100);
         controller.setText(0, 0, "Battery Low!");
     }
     // define opcontrol vars
     wingsDeployed = false;
+    cataEnabled = true;
     // run task(s)
     pros::Task buttonInterruptsTask(buttonInterrupts, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
     // drive
@@ -37,17 +39,28 @@ void opcontrol() {
     */
     while (true) {
         // drive
-        drive->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY),
-                                controller.getAnalog(ControllerAnalog::rightY));
-
-        pros::delay(10);
+        if (cataEnabled)
+            drive4->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY),
+                                     controller.getAnalog(ControllerAnalog::rightY));
+        if (!cataEnabled)
+            drive7->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY),
+                                     controller.getAnalog(ControllerAnalog::rightY));
+        pros::delay(20);
     }
 }
 
 void buttonInterrupts(void* param) {
     while (true) {
         if (cataBtn.changedToPressed()) {
-            // cata.moveVelocity(200);
+            if (cataEnabled) {
+                ptoFullGroup.moveVelocity(100);
+                ptoHalfGroup.moveVelocity(200);
+                pros::delay(2000);  // change this value
+                ptoGroup.moveVelocity(0); // see if this causes issues
+            }
+            else {
+                controller.setText(0, 0, "Cata Disabled");
+            }
             printf("cataBtn pressed\n");
         }
         if (wingsBtn.changedToPressed()) {
@@ -55,16 +68,17 @@ void buttonInterrupts(void* param) {
             wingsSolenoid.set_value(wingsDeployed);
             printf("wingsBtn pressed\twingsDeployed = %s\n", wingsDeployed ? "true" : "false");
         }
-        if (endgameBtn.changedToPressed()) {
-            shiftSolenoid.set_value(true);
-            printf("endgameBtn pressed\n");
+        if (ptoBtn.changedToPressed()) {
+            cataEnabled = !cataEnabled;
+            ptoSolenoid.set_value(cataEnabled);
+            printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
         }
         if (intakeBtn.changedToPressed()) {
-            // intake.moveVelocity(200);
+            intake.moveVelocity(600);
             printf("intakeBtn pressed\n");
         }
         if (outtakeBtn.changedToPressed()) {
-            // intake.moveVelocity(-200);
+            intake.moveVelocity(-600);
             printf("outtakeBtn pressed\n");
         }
         pros::delay(20);

@@ -5,6 +5,7 @@
 
 // declare opcontrol vars
 bool wingsDeployed;
+bool cataEnabled;
 
 void buttonInterrupts(void* param);
 
