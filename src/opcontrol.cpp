@@ -4,6 +4,7 @@
 #include "opcontrol.h"
 
 #include "main.h"
+// #include "autonomous.h"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -20,15 +21,20 @@
  */
 void opcontrol() {
     // battery warning
-    if (pros::battery::get_capacity() < 30 || controller.getBatteryLevel() < 30) {
+    if ((int)pros::battery::get_capacity() < 30 || controller.getBatteryLevel() < 30) {
         controller.rumble("..");
-        controller.setText(0, 2, "Battery Low!");
+        controller.setText(0, 0, "Battery Low!");
     }
     // define opcontrol vars
     wingsDeployed = false;
     // run task(s)
     pros::Task buttonInterruptsTask(buttonInterrupts, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
     // drive
+    /*
+    pros::delay(10000);
+    printf("running task\n");
+    autonTest();
+    */
     while (true) {
         // drive
         drive->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY),
@@ -42,19 +48,24 @@ void buttonInterrupts(void* param) {
     while (true) {
         if (cataBtn.changedToPressed()) {
             // cata.moveVelocity(200);
+            printf("cataBtn pressed\n");
         }
         if (wingsBtn.changedToPressed()) {
             wingsDeployed = !wingsDeployed;
             wingsSolenoid.set_value(wingsDeployed);
+            printf("wingsBtn pressed\twingsDeployed = %s\n", wingsDeployed ? "true" : "false");
         }
         if (endgameBtn.changedToPressed()) {
             shiftSolenoid.set_value(true);
+            printf("endgameBtn pressed\n");
         }
         if (intakeBtn.changedToPressed()) {
             // intake.moveVelocity(200);
+            printf("intakeBtn pressed\n");
         }
         if (outtakeBtn.changedToPressed()) {
             // intake.moveVelocity(-200);
+            printf("outtakeBtn pressed\n");
         }
         pros::delay(20);
     }

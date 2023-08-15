@@ -4,7 +4,6 @@
 #include "main.h"
 
 #define PID_AUT_OPT kP, kI, kD, Ibound, outBound
-#define PID_AUT_DRV autonL, autonR
 
 void noAuton();
 void elevationBar();
@@ -14,6 +13,6 @@ void loadZoneAndBar();
 void scoreGoalAndBar();
 void autonTest();
 void driveStraight(int target);
-void PIDdriveStraight(int target, PID PIDcontrollerL, PID PIDcontrollerR);
+void PIDdriveStraight(int target, PID PIDcontroller);
 
 #endif
