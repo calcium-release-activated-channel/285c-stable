@@ -77,7 +77,7 @@ void scoreGoalAndBar() {}
  * @param target The target voltage to drive at, [-12000, 12000]
  */
 void driveStraight(int target) {  // adjust for differences in friction
-    int leftAdj = 1,
+    int leftAdj = 1.06,
         rightAdj = 1;
     driveL.moveVoltage(target * leftAdj);
     driveR.moveVoltage(target * rightAdj);
