@@ -67,6 +67,9 @@ extern "C" {
 
 extern int autMode;
 
+void taskKill();
+extern pros::Task buttonInterruptsTask;
+
 extern Controller controller;
 
 extern ControllerButton cataBtn;

@@ -20,6 +20,7 @@
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    taskKill(); // in case bot disconnects or we go from auton -> driver
     // battery warning
     if ((int)pros::battery::get_capacity() < 30 || controller.getBatteryLevel() < 30) {
         controller.rumble(".");
@@ -30,7 +31,7 @@ void opcontrol() {
     wingsDeployed = false;
     cataEnabled = true;
     // run task(s)
-    pros::Task buttonInterruptsTask(buttonInterrupts, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
+    buttonInterruptsTask = pros::Task(buttonInterrupts, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
     // drive
     /*
     pros::delay(10000);

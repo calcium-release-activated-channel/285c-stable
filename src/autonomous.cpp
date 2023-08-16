@@ -26,6 +26,7 @@
  * from where it left off.
  */
 void autonomous() {
+    taskKill(); // in case we ever go from driver -> auton -> driver
     switch (autMode) {
         case 0:
             noAuton();

@@ -13,6 +13,16 @@ const std::vector<std::string> autonModes = {
     "Auton DevTest"};
 int autMode = 0;
 
+/*** TASK SAFETY AND DECLARATIONS ***/
+// declare
+pros::Task buttonInterruptsTask;
+// safety
+void taskKill() {
+    if (buttonInterruptsTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
+        buttonInterruptsTask.remove();
+    }
+}
+
 /*** BEGIN PORTS AND CONTROLLER DECLARATIONS ***/
 // controls
 ControllerButton cataBtn = ControllerDigital::L1;
@@ -111,7 +121,9 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+    taskKill(); // auton -> disable -> opcontrol
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -123,6 +135,7 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
+    taskKill(); // if comp cable is unplugged
     pros::delay(100);
     controller.setText(0, 0, autonModes[autMode]);
     while (true) {
