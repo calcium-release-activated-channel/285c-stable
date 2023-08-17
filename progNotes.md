@@ -7,19 +7,23 @@ The purpose of the file is to have a centralized place for programming notes tha
 _[write stuff here]_
 
 ## to do
-
+- convert one of the dead brains to field control
 
 ## drive details
 
-- 300 rpm, 6m drive, green cartridge, 4" wheel
-- MotorL {motor1, motor2, motor3}
-- MotorR {motor11, motor12, motor13}
-- default is clockwise
+- 300 rpm, 4/7m drive, green cartridge (pto red), 4" wheel
+- default is clockwise, motor option is if motor should be reversed
 - left drive needs to be counterclockwise
 - right drive needs to be clockwise
-- shiftable motors spin the opposite direction of their respective drive motor side
+- bottom pto motors spin the opposite direction of their respective drive motor side
+- top pto motors match their side of the drive
 
 ## auton rules
+
+LEFT SIDE auton is match load zone
+- sweeper or similar system required
+RIGHT SIDE auton is scoring goal
+- load it to outtake properly
 
 [SC7] An Autonomous Win Point is awarded to any Alliance that has completed the following tasks at the end of the Autonomous Period:
 

@@ -5,11 +5,11 @@
 
 const std::vector<std::string> autonModes = {
     "No Autonomous",
-    "Elevation Bar",
-    "Load Zone    ",
-    "Score Goal   ",
-    "LoadZone+Bar ",
-    "ScoreGoal+Bar",
+    "(+) Elev Bar ",
+    "(L) LoadZone ",
+    "(R) ScoreGoal",
+    "(L+) LdZn+Bar",
+    "(R+) ScGl+Bar",
     "Auton DevTest"};
 int autMode = 0;
 
@@ -64,12 +64,10 @@ Motor driveLB(driveLBPort, true, driveSetting);
 Motor driveRF(driveRFPort, false, driveSetting);
 Motor driveRB(driveRBPort, false, driveSetting);
 
-#define TO_BE_DESIGNED true
-
-Motor ptoFullL(ptoFullLPort, TO_BE_DESIGNED, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
-Motor ptoHalfL(ptoHalfLPort, TO_BE_DESIGNED, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor ptoFullR(ptoFullRPort, TO_BE_DESIGNED, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
-Motor ptoHalfR(ptoHalfRPort, TO_BE_DESIGNED, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor ptoFullL(ptoFullLPort, true, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
+Motor ptoHalfL(ptoHalfLPort, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor ptoFullR(ptoFullRPort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
+Motor ptoHalfR(ptoHalfRPort, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
 Motor intake(intakePort, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 

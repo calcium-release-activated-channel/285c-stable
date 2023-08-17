@@ -58,19 +58,19 @@ void autonomous() {
 // No Autonomous
 void noAuton() {}
 
-// Elevation Bar
+// Elevation Bar: +
 void elevationBar() {}
 
-// Load Zone
+// Load Zone: LEFT
 void loadZone() {}
 
-// Score Goal
+// Score Goal: RIGHT
 void scoreGoal() {}
 
-// Load Zone + Bar
+// Load Zone + Bar: LEFT+
 void loadZoneAndBar() {}
 
-// Score Goal + Bar
+// Score Goal + Bar: RIGHT+
 void scoreGoalAndBar() {}
 
 /**
