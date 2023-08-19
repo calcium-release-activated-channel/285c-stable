@@ -62,8 +62,8 @@ Motor driveLB(driveLBPort, true, driveSetting);
 Motor driveRF(driveRFPort, false, driveSetting);
 Motor driveRB(driveRBPort, false, driveSetting);
 
-Motor ptoFullL(ptoFullLPort, true, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
-Motor ptoHalfL(ptoHalfLPort, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor ptoFullL(ptoFullLPort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
+Motor ptoHalfL(ptoHalfLPort, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor ptoFullR(ptoFullRPort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
 Motor ptoHalfR(ptoHalfRPort, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
