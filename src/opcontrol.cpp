@@ -6,6 +6,8 @@
 #include "main.h"
 // #include "autonomous.h"
 
+pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
+
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -21,17 +23,20 @@
  */
 void opcontrol() {
     taskKill(); // in case bot disconnects or we go from auton -> driver
+    controller.clearLine(0);
     // battery warning
     if ((int)pros::battery::get_capacity() < 30 || controller.getBatteryLevel() < 30) {
+        pros::delay(100);
         controller.rumble(".");
         pros::delay(100);
-        controller.setText(0, 0, "Battery Low!");
+        controller.setText(0, 0, "Battery Low! ");
     }
     // define opcontrol vars
     wingsDeployed = false;
     cataEnabled = true;
     // run task(s)
-    buttonInterruptsTask = pros::Task(buttonInterrupts, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
+    // buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
+    buttonInterruptsTask.resume();
     // drive
     /*
     pros::delay(10000);
@@ -50,7 +55,7 @@ void opcontrol() {
     }
 }
 
-void buttonInterrupts(void* param) {
+void buttonInterrupts_fn(void* param) {
     while (true) {
         if (cataBtn.changedToPressed()) {
             if (cataEnabled) {
@@ -60,7 +65,8 @@ void buttonInterrupts(void* param) {
                 ptoGroup.moveVelocity(0); // see if this causes issues
             }
             else {
-                controller.setText(0, 0, "Cata Disabled");
+                pros::delay(100);
+                controller.rumble(".");
             }
             printf("cataBtn pressed\n");
         }
@@ -73,6 +79,7 @@ void buttonInterrupts(void* param) {
             cataEnabled = !cataEnabled;
             ptoSolenoid.set_value(cataEnabled);
             printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
+            controller.setText(0, 0, cataEnabled ? "Cata Enabled " : "Cata Disabled");
         }
         if (intakeBtn.changedToPressed()) {
             intake.moveVelocity(600);

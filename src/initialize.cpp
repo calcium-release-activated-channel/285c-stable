@@ -13,13 +13,11 @@ const std::vector<std::string> autonModes = {
     "Auton DevTest"};
 int autMode = 0;
 
-/*** TASK SAFETY AND DECLARATIONS ***/
-// declare
-pros::Task buttonInterruptsTask;
+/*** TASK SAFETY ***/
 // safety
 void taskKill() {
     if (buttonInterruptsTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
-        buttonInterruptsTask.remove();
+        buttonInterruptsTask.suspend();
     }
 }
 
@@ -106,6 +104,7 @@ std::shared_ptr<ChassisController> drive7 = okapi::ChassisControllerBuilder()
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+    taskKill();
     driveL.setBrakeMode(AbstractMotor::brakeMode::brake);
     driveR.setBrakeMode(AbstractMotor::brakeMode::brake);
     // idk if i have to retract pneumatics but just in case ig
@@ -121,6 +120,7 @@ void initialize() {
  */
 void disabled() {
     taskKill(); // auton -> disable -> opcontrol
+    controller.setText(0, 0, "Disabled :/  ");
 }
 
 /**

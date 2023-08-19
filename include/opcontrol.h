@@ -7,6 +7,6 @@
 bool wingsDeployed;
 bool cataEnabled;
 
-void buttonInterrupts(void* param);
+void buttonInterrupts_fn(void* param);
 
 #endif
