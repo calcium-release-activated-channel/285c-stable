@@ -25,7 +25,7 @@ void opcontrol() {
     taskKill(); // in case bot disconnects or we go from auton -> driver
     controller.clearLine(0);
     // battery warning
-    if ((int)pros::battery::get_capacity() < 30 || controller.getBatteryLevel() < 30) {
+    if ((int)pros::battery::get_capacity() < 35 || controller.getBatteryLevel() < 30) {
         pros::delay(100);
         controller.rumble(".");
         pros::delay(100);

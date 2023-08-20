@@ -43,7 +43,7 @@ int8_t ptoFullRPort = 13;
 int8_t ptoHalfRPort = 14;
 
 // intake motor
-int8_t intakePort = 4;
+int8_t intakePort = 5;
 
 // sensors (implicit conversion)
 uint8_t autonSelectorPort = 'B';
@@ -102,7 +102,7 @@ std::shared_ptr<ChassisController> drive7 = okapi::ChassisControllerBuilder()
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    taskKill();
+    taskKill(); // kill initialized programs
     driveL.setBrakeMode(AbstractMotor::brakeMode::brake);
     driveR.setBrakeMode(AbstractMotor::brakeMode::brake);
     // idk if i have to retract pneumatics but just in case ig

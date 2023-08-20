@@ -12,7 +12,7 @@
 - Right PTO 11W     13
 - Right PTO 5.5W    14
 
-- Intake Motor      4
+- Intake Motor      5
 
 ## 3-Wire
 
