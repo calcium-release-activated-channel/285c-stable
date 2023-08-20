@@ -59,8 +59,7 @@ void buttonInterrupts_fn(void* param) {
     while (true) {
         if (cataBtn.changedToPressed()) {
             if (cataEnabled) {
-                ptoFullGroup.moveVelocity(100);
-                ptoHalfGroup.moveVelocity(200);
+                ptoGroup.moveVelocity(200);
                 pros::delay(2000);  // change this value
                 ptoGroup.moveVelocity(0); // see if this causes issues
             }

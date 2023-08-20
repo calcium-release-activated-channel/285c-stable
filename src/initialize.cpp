@@ -62,10 +62,10 @@ Motor driveLB(driveLBPort, true, driveSetting);
 Motor driveRF(driveRFPort, false, driveSetting);
 Motor driveRB(driveRBPort, false, driveSetting);
 
-Motor ptoFullL(ptoFullLPort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
-Motor ptoHalfL(ptoHalfLPort, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor ptoFullR(ptoFullRPort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
-Motor ptoHalfR(ptoHalfRPort, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor ptoFullL(ptoFullLPort, false, driveSetting);
+Motor ptoHalfL(ptoHalfLPort, true, driveSetting);
+Motor ptoFullR(ptoFullRPort, false, driveSetting);
+Motor ptoHalfR(ptoHalfRPort, true, driveSetting);
 
 Motor intake(intakePort, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 
@@ -82,8 +82,6 @@ pros::adi::DigitalOut lowHangSolenoid(lowHangSolenoidPort);
 MotorGroup driveL({driveLF, driveLB});
 MotorGroup driveR({driveRF, driveRB});
 MotorGroup ptoGroup({ptoFullL, ptoFullR, ptoHalfL, ptoHalfR});
-MotorGroup ptoHalfGroup({ptoHalfL, ptoHalfR});
-MotorGroup ptoFullGroup({ptoFullL, ptoFullR});
 
 // drive
 std::shared_ptr<ChassisController> drive4 = okapi::ChassisControllerBuilder()

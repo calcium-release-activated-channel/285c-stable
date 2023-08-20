@@ -99,8 +99,6 @@ extern pros::adi::DigitalOut lowHangSolenoid;
 extern MotorGroup driveL;
 extern MotorGroup driveR;
 extern MotorGroup ptoGroup;
-extern MotorGroup ptoHalfGroup;
-extern MotorGroup ptoFullGroup;
 
 extern std::shared_ptr<ChassisController> drive4;
 extern std::shared_ptr<ChassisController> drive7;
