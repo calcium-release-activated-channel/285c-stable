@@ -135,6 +135,7 @@ void cataSubhandler_fn(void* param) {
         ptoGroup.moveVelocity(200);
         pros::delay((int)(2000.0 / 3.3));  // change this value
     }
+    ptoGroup.moveVelocity(0);
 }
 
 // void intakeSubhandler_fn(void* param) {
