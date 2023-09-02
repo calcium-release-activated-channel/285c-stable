@@ -39,7 +39,6 @@ void opcontrol() {
     wingsSolenoid.set_value(wingsDeployed);
     cataEnabled = true;
     ptoSolenoid.set_value(!cataEnabled);
-    runCata = false;
     // intakeMode = 0;
 
     // run task(s)
@@ -67,23 +66,20 @@ void opcontrol() {
 
 void buttonInterrupts_fn(void* param) {
     while (true) {
-        if (cataBtn.changedToPressed()) {
+        if (cataBtn.isPressed()) {
             if (cataEnabled) {
-                runCata = !runCata;
-                if (runCata) {
-                    ptoGroup.moveVelocity(200);
-                    pros::delay((int)(2000.0 / 3.3));  // change this value
-                }
-                else {
-                    ptoGroup.moveVelocity(0);
-                    pros::delay(100);
-                }
+                ptoGroup.moveVelocity(200);
+                // pros::delay((int)(2000.0 / 3.3));  // change this value
+                pros::delay(100);
             }
             else {
                 controller.rumble(".");
                 controller.setText(0, 0, "Cata Disabled");
             }
             printf("cataBtn pressed\n");
+        }
+        if (cataBtn.changedToReleased()) {
+            ptoGroup.moveVelocity(0);
         }
         if (wingsBtn.changedToPressed()) {
             wingsDeployed = !wingsDeployed;
@@ -92,15 +88,6 @@ void buttonInterrupts_fn(void* param) {
         }
         if (ptoBtn.changedToPressed()) {
             cataEnabled = !cataEnabled;
-            if (!cataEnabled) {
-                // if (cataSubhandlerTask.get_state() == pros::E_TASK_STATE_RUNNING)
-                //     cataSubhandlerTask.suspend();
-                runCata = false;
-            }
-            // else {
-            //     if (cataSubhandlerTask.get_state() == pros::E_TASK_STATE_SUSPENDED)
-            //         cataSubhandlerTask.resume();
-            // }
             ptoSolenoid.set_value(!cataEnabled);
             printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
             controller.setText(0, 0, cataEnabled ? "Cata Enabled " : "Cata Disabled");
@@ -167,7 +154,7 @@ void buttonInterrupts_fn(void* param) {
 //                 intake.moveVelocity(0);
 //                 break;
 //         }
-//         pros::delay(200);
+//         pros::delay(100);
 //     }
 // }
 
