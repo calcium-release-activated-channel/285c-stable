@@ -12,8 +12,6 @@
 - Right PTO 11W     13
 - Right PTO 5.5W    14
 
-- Intake Motor      5
-
 ## 3-Wire
 
 - Auton Selector    B
@@ -22,13 +20,14 @@
 
 [//]: # (NOT IMPLEMENTED)
 
+- Intake Motor      5
 - Sweeper Solenoid  E 
 - Low Hang Solenoid F
+Intake              R1
+Outtake             R2
 
 # Controls
 
 Run Catapult        L1
 Toggle Wings        L2
-Intake              R1
-Outtake             R2
 Toggle PTO          A
