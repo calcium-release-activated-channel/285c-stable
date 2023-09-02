@@ -65,7 +65,11 @@ void elevationBar() {}
 void loadZone() {}
 
 // Score Goal: RIGHT
-void scoreGoal() {}
+void scoreGoal() {
+    drive4->getModel()->tank(200, 200);
+    pros::delay(1000);
+    drive4->getModel()->tank(0, 0);
+}
 
 // Load Zone + Bar: LEFT+
 void loadZoneAndBar() {}
@@ -86,6 +90,10 @@ void driveStraight(int target) {  // adjust for differences in friction
 
 void autonTest() {
     drive4->getModel()->tank(0, 0); // use only 4m drive
+    while (true) {
+        ptoGroup.moveVelocity(200);
+        pros::delay((int)(2000.0 / 3.3));
+    }
 }
 
 #endif

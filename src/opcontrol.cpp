@@ -4,10 +4,9 @@
 #include "opcontrol.h"
 
 #include "main.h"
-// #include "autonomous.h"
 
 pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
-pros::Task cataSubhandlerTask = pros::Task(cataSubhandler_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Cata Subhandler");
+// pros::Task cataSubhandlerTask = pros::Task(cataSubhandler_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Cata Subhandler");
 // pros::Task intakeSubhandlerTask = pros::Task(intakeSubhandler_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Intake Subhandler");
 
 /**
@@ -39,13 +38,13 @@ void opcontrol() {
     wingsDeployed = false;
     wingsSolenoid.set_value(wingsDeployed);
     cataEnabled = true;
-    ptoSolenoid.set_value(cataEnabled);
+    ptoSolenoid.set_value(!cataEnabled);
     runCata = false;
     // intakeMode = 0;
 
     // run task(s)
     buttonInterruptsTask.resume();
-    cataSubhandlerTask.resume();
+    // cataSubhandlerTask.resume();
     // intakeSubhandlerTask.resume();
 
     // drive
@@ -69,8 +68,17 @@ void opcontrol() {
 void buttonInterrupts_fn(void* param) {
     while (true) {
         if (cataBtn.changedToPressed()) {
-            if (cataEnabled)
+            if (cataEnabled) {
                 runCata = !runCata;
+                if (runCata) {
+                    ptoGroup.moveVelocity(200);
+                    pros::delay((int)(2000.0 / 3.3));  // change this value
+                }
+                else {
+                    ptoGroup.moveVelocity(0);
+                    pros::delay(100);
+                }
+            }
             else {
                 controller.rumble(".");
                 controller.setText(0, 0, "Cata Disabled");
@@ -85,12 +93,15 @@ void buttonInterrupts_fn(void* param) {
         if (ptoBtn.changedToPressed()) {
             cataEnabled = !cataEnabled;
             if (!cataEnabled) {
-                cataSubhandlerTask.suspend();
+                // if (cataSubhandlerTask.get_state() == pros::E_TASK_STATE_RUNNING)
+                //     cataSubhandlerTask.suspend();
                 runCata = false;
             }
-            else
-                cataSubhandlerTask.resume();
-            ptoSolenoid.set_value(cataEnabled);
+            // else {
+            //     if (cataSubhandlerTask.get_state() == pros::E_TASK_STATE_SUSPENDED)
+            //         cataSubhandlerTask.resume();
+            // }
+            ptoSolenoid.set_value(!cataEnabled);
             printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
             controller.setText(0, 0, cataEnabled ? "Cata Enabled " : "Cata Disabled");
         }
@@ -130,13 +141,15 @@ void buttonInterrupts_fn(void* param) {
     }
 }
 
-void cataSubhandler_fn(void* param) {
-    while (runCata) {
-        ptoGroup.moveVelocity(200);
-        pros::delay((int)(2000.0 / 3.3));  // change this value
-    }
-    ptoGroup.moveVelocity(0);
-}
+// not working
+// void cataSubhandler_fn(void* param) {
+//     while (runCata) {
+//         ptoGroup.moveVelocity(-200);
+//         pros::delay((int)(2000.0 / 3.3));  // change this value
+//     }
+//     ptoGroup.moveVelocity(0);
+//     pros::delay(100);
+// }
 
 // void intakeSubhandler_fn(void* param) {
 //     while (true) {

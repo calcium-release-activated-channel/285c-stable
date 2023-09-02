@@ -10,7 +10,7 @@ bool runCata; // whether cata is running
 // int intakeMode; // -1 out 0 off 1 in
 
 void buttonInterrupts_fn(void* param);
-void cataSubhandler_fn(void* param);
+// void cataSubhandler_fn(void* param);
 // void intakeSubhandler_fn(void* param);
 
 #endif

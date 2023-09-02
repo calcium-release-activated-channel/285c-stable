@@ -14,7 +14,7 @@
 
 ## 3-Wire
 
-- Auton Selector    B
+- Auton Selector    E
 - PTO Solenoid      C
 - Wings Solenoid    D
 
