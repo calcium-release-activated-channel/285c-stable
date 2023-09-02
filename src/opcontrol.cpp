@@ -7,6 +7,8 @@
 // #include "autonomous.h"
 
 pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
+pros::Task cataSubhandlerTask = pros::Task(cataSubhandler_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Cata Subhandler");
+// pros::Task intakeSubhandlerTask = pros::Task(intakeSubhandler_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Intake Subhandler");
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -22,7 +24,8 @@ pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TAS
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    taskKill(); // in case bot disconnects or we go from auton -> driver
+    taskKill();  // in case bot disconnects or we go from auton -> driver
+
     controller.clearLine(0);
     // battery warning
     if ((int)pros::battery::get_capacity() < 35 || controller.getBatteryLevel() < 30) {
@@ -31,12 +34,20 @@ void opcontrol() {
         pros::delay(100);
         controller.setText(0, 0, "Battery Low! ");
     }
-    // define opcontrol vars
+
+    // define opcontrol vars and reset from auton
     wingsDeployed = false;
+    wingsSolenoid.set_value(wingsDeployed);
     cataEnabled = true;
+    ptoSolenoid.set_value(cataEnabled);
+    runCata = false;
+    // intakeMode = 0;
+
     // run task(s)
-    // buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
     buttonInterruptsTask.resume();
+    cataSubhandlerTask.resume();
+    // intakeSubhandlerTask.resume();
+
     // drive
     /*
     pros::delay(10000);
@@ -58,14 +69,11 @@ void opcontrol() {
 void buttonInterrupts_fn(void* param) {
     while (true) {
         if (cataBtn.changedToPressed()) {
-            if (cataEnabled) {
-                ptoGroup.moveVelocity(200);
-                pros::delay(2000);  // change this value
-                ptoGroup.moveVelocity(0); // see if this causes issues
-            }
+            if (cataEnabled)
+                runCata = !runCata;
             else {
-                pros::delay(100);
                 controller.rumble(".");
+                controller.setText(0, 0, "Cata Disabled");
             }
             printf("cataBtn pressed\n");
         }
@@ -76,20 +84,77 @@ void buttonInterrupts_fn(void* param) {
         }
         if (ptoBtn.changedToPressed()) {
             cataEnabled = !cataEnabled;
+            if (!cataEnabled) {
+                cataSubhandlerTask.suspend();
+                runCata = false;
+            }
+            else
+                cataSubhandlerTask.resume();
             ptoSolenoid.set_value(cataEnabled);
             printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
             controller.setText(0, 0, cataEnabled ? "Cata Enabled " : "Cata Disabled");
         }
         // if (intakeBtn.changedToPressed()) {
-        //     intake.moveVelocity(600);
-        //     printf("intakeBtn pressed\n");
+        //     switch (intakeMode) {
+        //         case -1:
+        //             intakeMode = 1;
+        //             break;
+        //         case 0:
+        //             intakeMode = 1;
+        //             break;
+        //         case 1:
+        //             intakeMode = 0;
+        //             break;
+        //         default:
+        //             intakeMode = 0;
+        //             break;
+        //     }
         // }
         // if (outtakeBtn.changedToPressed()) {
-        //     intake.moveVelocity(-600);
-        //     printf("outtakeBtn pressed\n");
+        //     switch (intakeMode) {
+        //         case -1:
+        //             intakeMode = 0;
+        //             break;
+        //         case 0:
+        //             intakeMode = -1;
+        //             break;
+        //         case 1:
+        //             intakeMode = -1;
+        //             break;
+        //         default:
+        //             intakeMode = 0;
+        //             break;
+        //     }
         // }
         pros::delay(20);
     }
 }
+
+void cataSubhandler_fn(void* param) {
+    while (runCata) {
+        ptoGroup.moveVelocity(200);
+        pros::delay((int)(2000.0 / 3.3));  // change this value
+    }
+}
+
+// void intakeSubhandler_fn(void* param) {
+//     while (true) {
+//         switch (intakeMode) {
+//             case -1:
+//                 intake.moveVelocity(-600);
+//                 break;
+//             case 0:
+//                 intake.moveVelocity(0);
+//                 break;
+//             case 1:
+//                 intake.moveVelocity(600);
+//                 break;
+//             default:
+//                 intake.moveVelocity(0);
+//                 break;
+//         }
+//         pros::delay(200);
+//     }
+// }
 
 #endif

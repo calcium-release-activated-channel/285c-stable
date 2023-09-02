@@ -69,6 +69,8 @@ extern int autMode;
 
 void taskKill();
 extern pros::Task buttonInterruptsTask;
+extern pros::Task cataSubhandlerTask;
+// extern pros::Task intakeSubhandlerTask;
 
 extern Controller controller;
 

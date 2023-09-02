@@ -18,16 +18,21 @@
 - PTO Solenoid      C
 - Wings Solenoid    D
 
-[//]: # (NOT IMPLEMENTED)
-
-- Intake Motor      5
-- Sweeper Solenoid  E 
-- Low Hang Solenoid F
-Intake              R1
-Outtake             R2
-
 # Controls
 
-Run Catapult        L1
-Toggle Wings        L2
-Toggle PTO          A
+- Run Catapult      L1
+- Toggle Wings      L2
+- Toggle PTO        B (Scuff Controller Bottom Right)
+
+# Removed
+
+## Taken Off Robot
+
+- Intake Motor      5
+- Intake            R1
+- Outtake           R2
+
+## Nonexistent
+
+- Sweeper Solenoid  E 
+- Low Hang Solenoid F

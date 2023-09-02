@@ -19,6 +19,12 @@ void taskKill() {
     if (buttonInterruptsTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
         buttonInterruptsTask.suspend();
     }
+    if (cataSubhandlerTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
+        cataSubhandlerTask.suspend();
+    }
+    // if (intakeSubhandlerTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
+    //     intakeSubhandlerTask.suspend();
+    // }
 }
 
 /*** BEGIN PORTS AND CONTROLLER DECLARATIONS ***/
@@ -27,7 +33,7 @@ ControllerButton cataBtn = ControllerDigital::L1;
 ControllerButton wingsBtn = ControllerDigital::L2;
 // ControllerButton intakeBtn = ControllerDigital::R1;
 // ControllerButton outtakeBtn = ControllerDigital::R2;
-ControllerButton ptoBtn = ControllerDigital::A;
+ControllerButton ptoBtn = ControllerDigital::B;
 
 // ports
 // drive motors

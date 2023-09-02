@@ -85,7 +85,7 @@ void driveStraight(int target) {  // adjust for differences in friction
 }
 
 void autonTest() {
-    drive4->getModel()->tank(0, 0); // use only 
+    drive4->getModel()->tank(0, 0); // use only 4m drive
 }
 
 #endif
