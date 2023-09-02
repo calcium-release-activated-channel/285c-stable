@@ -25,8 +25,8 @@ void taskKill() {
 // controls
 ControllerButton cataBtn = ControllerDigital::L1;
 ControllerButton wingsBtn = ControllerDigital::L2;
-ControllerButton intakeBtn = ControllerDigital::R1;
-ControllerButton outtakeBtn = ControllerDigital::R2;
+// ControllerButton intakeBtn = ControllerDigital::R1;
+// ControllerButton outtakeBtn = ControllerDigital::R2;
 ControllerButton ptoBtn = ControllerDigital::A;
 
 // ports
@@ -43,14 +43,14 @@ int8_t ptoFullRPort = 13;
 int8_t ptoHalfRPort = 14;
 
 // intake motor
-int8_t intakePort = 5;
+// int8_t intakePort = 5;
 
 // sensors (implicit conversion)
 uint8_t autonSelectorPort = 'B';
 uint8_t ptoSolenoidPort = 'C';
 uint8_t wingsSolenoidPort = 'D';
 // uint8_t sweepSolenoidPort = 'E';
-uint8_t lowHangSolenoidPort = 'F';
+// uint8_t lowHangSolenoidPort = 'F';
 /*** END PORTS AND CONTROLLER DECLARATIONS ***/
 
 // controller
@@ -67,7 +67,7 @@ Motor ptoHalfL(ptoHalfLPort, true, driveSetting);
 Motor ptoFullR(ptoFullRPort, false, driveSetting);
 Motor ptoHalfR(ptoHalfRPort, true, driveSetting);
 
-Motor intake(intakePort, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+// Motor intake(intakePort, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 
 // sensors
 pros::adi::DigitalIn autonSelector(autonSelectorPort);
@@ -76,7 +76,7 @@ pros::adi::DigitalIn autonSelector(autonSelectorPort);
 pros::adi::DigitalOut ptoSolenoid(ptoSolenoidPort);
 pros::adi::DigitalOut wingsSolenoid(wingsSolenoidPort);
 // pros::adi::DigitalOut sweepSolenoid(sweepSolenoidPort);
-pros::adi::DigitalOut lowHangSolenoid(lowHangSolenoidPort);
+// pros::adi::DigitalOut lowHangSolenoid(lowHangSolenoidPort);
 
 // motor groups
 MotorGroup driveL({driveLF, driveLB});

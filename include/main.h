@@ -73,8 +73,8 @@ extern pros::Task buttonInterruptsTask;
 extern Controller controller;
 
 extern ControllerButton cataBtn;
-extern ControllerButton intakeBtn;
-extern ControllerButton outtakeBtn;
+// extern ControllerButton intakeBtn;
+// extern ControllerButton outtakeBtn;
 extern ControllerButton ptoBtn;
 extern ControllerButton wingsBtn;
 
@@ -88,13 +88,13 @@ extern Motor ptoHalfL;
 extern Motor ptoFullR;
 extern Motor ptoHalfR;
 
-extern Motor intake;
+// extern Motor intake;
 
 extern pros::adi::DigitalIn autonSelector;
 extern pros::adi::DigitalOut ptoSolenoid;
 extern pros::adi::DigitalOut wingsSolenoid;
 // extern pros::adi::DigitalOut sweepSolenoid;
-extern pros::adi::DigitalOut lowHangSolenoid;
+// extern pros::adi::DigitalOut lowHangSolenoid;
 
 extern MotorGroup driveL;
 extern MotorGroup driveR;

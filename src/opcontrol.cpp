@@ -80,14 +80,14 @@ void buttonInterrupts_fn(void* param) {
             printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
             controller.setText(0, 0, cataEnabled ? "Cata Enabled " : "Cata Disabled");
         }
-        if (intakeBtn.changedToPressed()) {
-            intake.moveVelocity(600);
-            printf("intakeBtn pressed\n");
-        }
-        if (outtakeBtn.changedToPressed()) {
-            intake.moveVelocity(-600);
-            printf("outtakeBtn pressed\n");
-        }
+        // if (intakeBtn.changedToPressed()) {
+        //     intake.moveVelocity(600);
+        //     printf("intakeBtn pressed\n");
+        // }
+        // if (outtakeBtn.changedToPressed()) {
+        //     intake.moveVelocity(-600);
+        //     printf("outtakeBtn pressed\n");
+        // }
         pros::delay(20);
     }
 }
