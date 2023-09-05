@@ -53,8 +53,8 @@ void opcontrol() {
     autonTest();
     */
     while (true) {
-        long l = controller.getAnalog(ControllerAnalog::leftY);
-        long r = controller.getAnalog(ControllerAnalog::rightY);
+        float l = controller.getAnalog(ControllerAnalog::leftY);
+        float r = controller.getAnalog(ControllerAnalog::rightY);
         // drive
         drive4->getModel()->tank(l,r);
         if (!cataEnabled)
