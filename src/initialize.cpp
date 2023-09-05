@@ -88,6 +88,8 @@ pros::adi::DigitalOut wingsSolenoid(wingsSolenoidPort);
 MotorGroup driveL({driveLF, driveLB});
 MotorGroup driveR({driveRF, driveRB});
 MotorGroup ptoGroup({ptoFullL, ptoFullR, ptoHalfL, ptoHalfR});
+MotorGroup ptoGroupL({ptoFullL, ptoHalfL});
+MotorGroup ptoGroupR({ptoFullR, ptoHalfR});
 
 // drive
 std::shared_ptr<ChassisController> drive4 = okapi::ChassisControllerBuilder()
@@ -96,7 +98,7 @@ std::shared_ptr<ChassisController> drive4 = okapi::ChassisControllerBuilder()
                                                 .withMaxVelocity(200)
                                                 .build();
 std::shared_ptr<ChassisController> drive7 = okapi::ChassisControllerBuilder()
-                                                .withMotors(driveL, driveR, ptoGroup)
+                                                .withMotors(ptoGroupL, ptoGroupR)
                                                 .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 12_in}, imev5GreenTPR})  // this may cause issues
                                                 .withMaxVelocity(200)
                                                 .build();
