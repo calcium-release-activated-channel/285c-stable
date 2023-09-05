@@ -53,13 +53,12 @@ void opcontrol() {
     autonTest();
     */
     while (true) {
+        long l = controller.getAnalog(ControllerAnalog::leftY);
+        long r = controller.getAnalog(ControllerAnalog::rightY);
         // drive
-        if (cataEnabled)
-            drive4->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY),
-                                     controller.getAnalog(ControllerAnalog::rightY));
+        drive4->getModel()->tank(l,r);
         if (!cataEnabled)
-            drive7->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY),
-                                     controller.getAnalog(ControllerAnalog::rightY));
+            drive7->getModel()->tank(l,r);
         pros::delay(20);
     }
 }
