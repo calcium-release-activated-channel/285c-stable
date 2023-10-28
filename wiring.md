@@ -12,6 +12,8 @@
 - Right PTO 11W     13
 - Right PTO 5.5W    14
 
+- Intake            5
+
 ## 3-Wire
 
 - Auton Selector    E
@@ -23,14 +25,10 @@
 - Run Catapult      L1
 - Toggle Wings      L2
 - Toggle PTO        B (Scuff Controller Bottom Right)
+- Move Arm Out      R1
+- Move Arm In       R2
 
 # Removed
-
-## Taken Off Robot
-
-- Intake Motor      5
-- Intake            R1
-- Outtake           R2
 
 ## Nonexistent
 

@@ -56,9 +56,9 @@ void opcontrol() {
         float l = controller.getAnalog(ControllerAnalog::leftY);
         float r = controller.getAnalog(ControllerAnalog::rightY);
         // drive
-        drive4->getModel()->tank(l,r);
+        drive4->getModel()->tank(l, r);
         if (!cataEnabled)
-            drive7->getModel()->tank(l,r);
+            drive7->getModel()->tank(l, r);
         pros::delay(20);
     }
 }
@@ -90,6 +90,15 @@ void buttonInterrupts_fn(void* param) {
             ptoSolenoid.set_value(!cataEnabled);
             printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
             controller.setText(0, 0, cataEnabled ? "Cata Enabled " : "Cata Disabled");
+        }
+        if (armInBtn.isPressed() && !armOutBtn.isPressed()) {
+            intake.moveVelocity(200);
+        }
+        if (armOutBtn.isPressed() && !armInBtn.isPressed()) {
+            intake.moveVelocity(-200);
+        }
+        if (armInBtn.changedToReleased() || armOutBtn.changedToReleased()) {
+            intake.moveVelocity(0);
         }
         // if (intakeBtn.changedToPressed()) {
         //     switch (intakeMode) {

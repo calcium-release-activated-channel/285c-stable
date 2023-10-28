@@ -19,6 +19,9 @@ void taskKill() {
     if (buttonInterruptsTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
         buttonInterruptsTask.suspend();
     }
+    // if (armAutonTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
+    //     armAutonTask.suspend();
+    // }
     // if (cataSubhandlerTask.get_state() == pros::task_state_e_t::E_TASK_STATE_RUNNING) {
     //     cataSubhandlerTask.suspend();
     // }
@@ -31,8 +34,8 @@ void taskKill() {
 // controls
 ControllerButton cataBtn = ControllerDigital::L1;
 ControllerButton wingsBtn = ControllerDigital::L2;
-// ControllerButton intakeBtn = ControllerDigital::R1;
-// ControllerButton outtakeBtn = ControllerDigital::R2;
+ControllerButton armOutBtn = ControllerDigital::R1;
+ControllerButton armInBtn = ControllerDigital::R2;
 ControllerButton ptoBtn = ControllerDigital::B;
 
 // ports
@@ -49,7 +52,7 @@ int8_t ptoFullRPort = 13;
 int8_t ptoHalfRPort = 14;
 
 // intake motor
-// int8_t intakePort = 5;
+int8_t intakePort = 5;
 
 // sensors (implicit conversion)
 uint8_t autonSelectorPort = 'E';
@@ -73,7 +76,7 @@ Motor ptoHalfL(ptoHalfLPort, true, driveSetting);
 Motor ptoFullR(ptoFullRPort, false, driveSetting);
 Motor ptoHalfR(ptoHalfRPort, true, driveSetting);
 
-// Motor intake(intakePort, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor intake (intakePort, false, driveSetting);
 
 // sensors
 pros::adi::DigitalIn autonSelector(autonSelectorPort);
