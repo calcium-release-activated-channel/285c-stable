@@ -80,6 +80,7 @@ extern ControllerButton armOutBtn;
 extern ControllerButton armInBtn;
 extern ControllerButton ptoBtn;
 extern ControllerButton wingsBtn;
+extern ControllerButton cataRevBtn;
 
 extern Motor driveLF;
 extern Motor driveLB;

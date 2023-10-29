@@ -67,7 +67,7 @@ void buttonInterrupts_fn(void* param) {
     while (true) {
         if (cataBtn.isPressed()) {
             if (cataEnabled) {
-                ptoGroup.moveVelocity(200);
+                ptoGroup.moveVelocity(-200);
                 // pros::delay((int)(2000.0 / 3.3));  // change this value
                 pros::delay(100);
             }
@@ -78,6 +78,21 @@ void buttonInterrupts_fn(void* param) {
             printf("cataBtn pressed\n");
         }
         if (cataBtn.changedToReleased()) {
+            ptoGroup.moveVelocity(0);
+        }
+        if (cataRevBtn.isPressed()) {
+            if (cataEnabled) {
+                ptoGroup.moveVelocity(200);
+                // pros::delay((int)(2000.0 / 3.3));  // change this value
+                pros::delay(100);
+            }
+            else {
+                controller.rumble(".");
+                controller.setText(0, 0, "Cata Disabled");
+            }
+            printf("cataBtn pressed\n");
+        }
+        if (cataRevBtn.changedToReleased()) {
             ptoGroup.moveVelocity(0);
         }
         if (wingsBtn.changedToPressed()) {

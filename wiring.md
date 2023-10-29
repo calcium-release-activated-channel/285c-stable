@@ -24,7 +24,8 @@
 
 - Run Catapult      L1
 - Toggle Wings      L2
-- Toggle PTO        B (Scuff Controller Bottom Right)
+- Toggle PTO        B
+- Reverse Catapult  ↓
 - Move Arm Out      R1
 - Move Arm In       R2
 

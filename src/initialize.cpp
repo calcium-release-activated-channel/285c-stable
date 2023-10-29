@@ -3,14 +3,19 @@
 
 #include "main.h"
 
+/* Key:
+ * "*" == Working
+ * "-" == Programmed but untested
+ * " " == Not programme
+ */
 const std::vector<std::string> autonModes = {
-    "No Autonomous",
-    "(+) Elev Bar ",
-    "(L) LoadZone ",
-    "(R) ScoreGoal",
-    "(L+) LdZn+Bar",
-    "(R+) ScGl+Bar",
-    "Auton DevTest"};
+    "* No Auton   ",
+    "  (+) Elev Br",
+    "- (L) LoadZn ",
+    "* (R) ScrGoal",
+    "- (L+) LdZ+Br",
+    "  (R+) ScG+Br",
+    "  Auton Test "};
 int autMode = 0;
 
 /*** TASK SAFETY ***/
@@ -37,6 +42,7 @@ ControllerButton wingsBtn = ControllerDigital::L2;
 ControllerButton armOutBtn = ControllerDigital::R1;
 ControllerButton armInBtn = ControllerDigital::R2;
 ControllerButton ptoBtn = ControllerDigital::B;
+ControllerButton cataRevBtn = ControllerDigital::down;
 
 // ports
 // drive motors
@@ -71,12 +77,12 @@ Motor driveLB(driveLBPort, true, driveSetting);
 Motor driveRF(driveRFPort, false, driveSetting);
 Motor driveRB(driveRBPort, false, driveSetting);
 
-Motor ptoFullL(ptoFullLPort, false, driveSetting);
-Motor ptoHalfL(ptoHalfLPort, true, driveSetting);
-Motor ptoFullR(ptoFullRPort, false, driveSetting);
-Motor ptoHalfR(ptoHalfRPort, true, driveSetting);
+Motor ptoFullL(ptoFullLPort, true, driveSetting);
+Motor ptoHalfL(ptoHalfLPort, false, driveSetting);
+Motor ptoFullR(ptoFullRPort, true, driveSetting);
+Motor ptoHalfR(ptoHalfRPort, false, driveSetting);
 
-Motor intake (intakePort, false, driveSetting);
+Motor intake(intakePort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
 
 // sensors
 pros::adi::DigitalIn autonSelector(autonSelectorPort);
@@ -113,9 +119,11 @@ std::shared_ptr<ChassisController> drive7 = okapi::ChassisControllerBuilder()
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    taskKill(); // kill initialized programs
+    taskKill();  // kill initialized programs
     driveL.setBrakeMode(AbstractMotor::brakeMode::brake);
     driveR.setBrakeMode(AbstractMotor::brakeMode::brake);
+    ptoGroup.setBrakeMode(AbstractMotor::brakeMode::brake);
+    intake.setBrakeMode(AbstractMotor::brakeMode::brake);
     // idk if i have to retract pneumatics but just in case ig
     ptoSolenoid.set_value(false);
     wingsSolenoid.set_value(false);
@@ -128,7 +136,7 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-    taskKill(); // auton -> disable -> opcontrol
+    taskKill();  // auton -> disable -> opcontrol
     controller.setText(0, 0, "Disabled :/  ");
 }
 
@@ -142,7 +150,7 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
-    taskKill(); // if comp cable is unplugged
+    taskKill();  // if comp cable is unplugged
     pros::delay(100);
     controller.setText(0, 0, autonModes[autMode]);
     while (true) {

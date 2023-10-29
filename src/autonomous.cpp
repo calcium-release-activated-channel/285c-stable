@@ -70,12 +70,12 @@ void loadZone() {
     drive4->moveDistance(-24_in); //back robot out of starting tile
     drive4->turnAngle(45_deg); //turn robot to face load zone
     drive4->moveDistance(34_in); //move robot to load zone or 24*sqrt(2)
-    intake.moveVelocity(200); //start intake
-    pros::delay(500);
+    intake.moveVelocity(100); //start intake
+    pros::delay(2800);
     intake.moveVelocity(0); //stop intake
     drive4->moveDistance(-14_in); //move robot back to intersection of tile
-    intake.moveVelocity(-200);     // start intake
-    pros::delay(500);
+    intake.moveVelocity(-100);     // start intake
+    pros::delay(2800);
     intake.moveVelocity(0);  // stop intake
     drive4->turnAngle(180_deg);
     drive4->moveDistance(-14_in);
@@ -93,12 +93,12 @@ void loadZoneAndBar() {
     drive4->moveDistance(-24_in);  // back robot out of starting tile
     drive4->turnAngle(45_deg);    // turn robot to face load zone
     drive4->moveDistance(34_in);   // move robot to load zone or 24*sqrt(2)
-    intake.moveVelocity(200);      // start intake
-    pros::delay(500);
+    intake.moveVelocity(100);      // start intake
+    pros::delay(2800);
     intake.moveVelocity(0);        // stop intake
     drive4->moveDistance(-34_in);  // back robot out of load zone
-    intake.moveVelocity(-200);     // release ball
-    pros::delay(300);
+    intake.moveVelocity(-100);     // release ball
+    pros::delay(1272);
     intake.moveVelocity(0);        // keep arm up for elevation
     drive4->turnAngle(-45_deg);     // move toward elevation bar
     drive4->moveDistance(24_in);
