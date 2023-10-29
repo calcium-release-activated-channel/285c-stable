@@ -7,16 +7,15 @@ The purpose of the file is to have a centralized place for programming notes tha
 _[write stuff here]_
 
 ## to do
-- convert one of the dead brains to field control
 
 ## drive details
 
-- 300 rpm, 4/7m drive, green cartridge (pto red), 4" wheel
-- default is clockwise, motor option is if motor should be reversed
+- 300 rpm, 4/7m drive, green cartridge (arm red), 4" wheel
+- default is clockwise, motor option is if motor should be reversed (true = needs to be reversed)
 - left drive needs to be counterclockwise
 - right drive needs to be clockwise
-- bottom pto motors spin the opposite direction of their respective drive motor side
-- top pto motors match their side of the drive
+- back pto motors spin the opposite direction of their respective drive motor side
+- front pto motors match their side of the drive
 
 ## auton rules
 

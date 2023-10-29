@@ -67,7 +67,7 @@ void buttonInterrupts_fn(void* param) {
     while (true) {
         if (cataBtn.isPressed()) {
             if (cataEnabled) {
-                ptoGroup.moveVelocity(-200);
+                ptoGroup.moveVelocity(-121); // 20 rpm
                 // pros::delay((int)(2000.0 / 3.3));  // change this value
                 pros::delay(100);
             }
@@ -82,7 +82,7 @@ void buttonInterrupts_fn(void* param) {
         }
         if (cataRevBtn.isPressed()) {
             if (cataEnabled) {
-                ptoGroup.moveVelocity(200);
+                ptoGroup.moveVelocity(121); 
                 // pros::delay((int)(2000.0 / 3.3));  // change this value
                 pros::delay(100);
             }
