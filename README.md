@@ -6,7 +6,7 @@ Hosts 285C's code for Over Under
 
 Get the latest version of the [Over Under Game Manual](https://link.vex.com/docs/23-24/vrc-over-under/GameManual)
 
-If the version is higher than Version 2.0 (8/1/2023), please let me know so we can review the changes.
+If the version is higher than Version 2.1 (10/03/2023), please let me know so we can review the changes.
 
 <details>
   <summary><h2>Commonly Referenced Images</h2></summary>
@@ -71,6 +71,25 @@ If the version is higher than Version 2.0 (8/1/2023), please let me know so we c
 </details>
 <details>
   <summary><h2>Game Manual Changes</h2></summary>
+
+### Version 2.1 - October 3, 2023
+ > - Added a new definition of Plowing
+ > - Updated the definition of Possession to clarify intent and explain relation to Plowing
+ > - Updated \<SC5> to clarify the criteria of scoring Alliance Triballs
+ > - Updated \<G1> to include a link to the Code of Conduct process
+ > - Updated \<G5> to clarify that Robots may not use external influences to satisfy starting size limits
+ > - Added a red box to \<SG5> allowing Teams an opportunity at the Head Referee’s discretion to untangle themselves from the net if it occurs during the Autonomous Period
+ > - Updated \<SG6> with a new bullet point, image, and notes to clarify intent
+ > - Updated \<SG11> to clarify intent of non Match Affecting Violations
+ > - Updated \<R7b> to clarify that greasing V5 Smart Motor cartridges is prohibited
+ > - Updated \<T11> to clarify intent of repairing a broken net
+ > - Updated Appendix A to include allowed field modifications
+ > - Updated \<VUG1> to clarify that Teams may adjust the starting position of Alliance Triballs per \<SG1>
+ > - Updated \<VUG5> to clarify that Alliances may only use the Match Load Zone adjacent to the Robot Starting Tiles during the Autonomous Period of a Head-to-Head Match
+ > - Updated \<VUR3> to allow molding of non-metals
+ > - Updated the tables in \<VUR4> and \<VUR5> to clarify intent
+ > - Added Appendix D (VEX AI Robotics Competition)
+ > - Minor typo / formatting fixes
 
 ### Version 2.0 - August 1, 2023
  > - Updated \<G8> to clarify the legality of items brought to the field by Drive Team Members
