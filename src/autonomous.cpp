@@ -67,18 +67,22 @@ void elevationBar() {}
 
 // Load Zone: LEFT
 void loadZone() {
-    drive4->moveDistance(-24_in); //back robot out of starting tile
-    drive4->turnAngle(45_deg); //turn robot to face load zone
-    drive4->moveDistance(34_in); //move robot to load zone or 24*sqrt(2)
-    intake.moveVelocity(100); //start intake
-    pros::delay(2800);
-    intake.moveVelocity(0); //stop intake
-    drive4->moveDistance(-14_in); //move robot back to intersection of tile
-    intake.moveVelocity(-100);     // start intake
-    pros::delay(2800);
-    intake.moveVelocity(0);  // stop intake
-    drive4->turnAngle(180_deg);
-    drive4->moveDistance(-14_in);
+    drive4->moveVelocity(-200);
+    pros::delay(500);
+
+
+    // drive4->moveDistance(-24_in); //back robot out of starting tile
+    // drive4->turnAngle(45_deg); //turn robot to face load zone
+    // drive4->moveDistance(34_in); //move robot to load zone or 24*sqrt(2)
+    // intake.moveVelocity(100); //start intake
+    // pros::delay(2800);
+    // intake.moveVelocity(0); //stop intake
+    // drive4->moveDistance(-14_in); //move robot back to intersection of tile
+    // intake.moveVelocity(-100);     // start intake
+    // pros::delay(2800);
+    // intake.moveVelocity(0);  // stop intake
+    // drive4->turnAngle(180_deg);
+    // drive4->moveDistance(-14_in);
 }
 
 // Score Goal: RIGHT
