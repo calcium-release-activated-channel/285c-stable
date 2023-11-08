@@ -69,7 +69,7 @@ void elevationBar() {}
 void loadZone() {
     driveL.moveVoltage(4000);
     driveR.moveVoltage(4000);
-    pros::delay(500);
+    pros::delay(125);
 
 
     // drive4->moveDistance(-24_in); //back robot out of starting tile
