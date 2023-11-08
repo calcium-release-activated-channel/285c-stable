@@ -67,8 +67,8 @@ void elevationBar() {}
 
 // Load Zone: LEFT
 void loadZone() {
-    driveL.moveVelocity(-200);
-    driveR.moveVelocity(-200);
+    driveL.moveVoltage(4000);
+    driveR.moveVoltage(4000);
     pros::delay(500);
 
 
