@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "285C_2023-2024_OU",
+    "project_name": "285C_OU",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -222,8 +222,9 @@
     },
     "upload_options": {
       "description": "285C's Over Under Code",
-      "after": "run",
-      "icon": "pros"
+      "after": "screen",
+      "icon": "pros",
+      "slot": 1
     }
   }
 }

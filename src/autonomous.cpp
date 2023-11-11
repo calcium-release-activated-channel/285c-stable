@@ -64,7 +64,7 @@ void noAuton() {
     
     // DELETE THIS AT COMPETITION
     autonTest();
-    
+    return;
 }
 
 // Elevation Bar: +
@@ -134,11 +134,23 @@ void driveStraight(int targetL, int targetR) {  // adjust for differences in fri
 void autonTest() {
         // begin auton dev
 
-    // forward 1 tile
+    // forward 2 tile
     driveStraight(6000, 6000);
-    pros::delay(750);
+    pros::delay(1500);
     driveStraight(0, 0);
     pros::delay(20);
+
+    // back 1 tile
+    driveStraight(-6000, -6000);
+    pros::delay(700);
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // // forward 1 tile
+    // driveStraight(6000, 6000);
+    // pros::delay(500);
+    // driveStraight(0, 0);
+    // pros::delay(20);
 
     // 45 degrees left
     driveStraight(-6000, 6000);
@@ -147,48 +159,68 @@ void autonTest() {
     pros::delay(20);
 
     // move triangle distance
-    driveStraight(6000, 6000);
-    pros::delay(354);  // 750 / 3 * sqrt(2)
+    driveStraight(3000, 3000);
+    pros::delay(1500);  // 750 / 3 * sqrt(2)
     driveStraight(0, 0);
     pros::delay(20);
 
     // 45 degrees right
-    driveStraight(6000, -6000);
-    pros::delay(250);  // 500 for a 90 deg turn
+    driveStraight(3000, -3000);
+    pros::delay(500);
     driveStraight(0, 0);
     pros::delay(20);
 
+    // // arc motion right until have turned 45
+    // driveStraight(3000, 0);
+    // pros::delay(800);  // modify this value experimentally
+    // driveStraight(0, 0);
+    // pros::delay(20);
+
+    // // arc motion right until have turned 45
+    // driveStraight(3000, 0);
+    // pros::delay(800);  // modify this value experimentally; 350 for 3000mV
+    // driveStraight(0, 0);
+    // pros::delay(20);
+
     // forward 1/2 tile
-    driveStraight(6000, 6000);
-    pros::delay(375);
+    driveStraight(3000, 3000);
+    pros::delay(1000);
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // // forward 1/4 tile
+    // driveStraight(6000, 6000);
+    // pros::delay(300);
+    // driveStraight(0, 0);
+    // pros::delay(20);
+
+    // arc motion right until have turned 90 degrees
+    driveStraight(4500, 0);
+    pros::delay(1500);  // modify this value experimentally
     driveStraight(0, 0);
     pros::delay(20);
 
     // expand wings
     wingsSolenoid.set_value(true);
 
-    // forward 1/4 tile
-    driveStraight(6000, 6000);
-    pros::delay(188);
-    driveStraight(0, 0);
-    pros::delay(20);
-
     // arc motion right until have turned 90 degrees
-    driveStraight(6000, 0);
-    pros::delay(500);  // modify this value experimentally
+    driveStraight(4500, 0);
+    pros::delay(375);  // modify this value experimentally
     driveStraight(0, 0);
     pros::delay(20);
 
     // forward 1/4 tile into goal
     driveStraight(6000, 6000);
-    pros::delay(188);
+    pros::delay(825);
     driveStraight(0, 0);
     pros::delay(20);
 
     // back out of goal
     driveStraight(-6000, -6000);
-    pros::delay(188);
+    pros::delay(825);
     driveStraight(0, 0);
+
+    return;
 
     // end auton dev
 }
