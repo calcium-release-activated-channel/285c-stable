@@ -30,7 +30,7 @@
 // pros::Task armAutonTask = pros::Task(armAutonTask_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
 
 void autonomous() {
-    taskKill(); // in case we ever go from driver -> auton -> driver
+    taskKill();  // in case we ever go from driver -> auton -> driver
     switch (autMode) {
         case 0:
             noAuton();
@@ -60,7 +60,12 @@ void autonomous() {
 }
 
 // No Autonomous
-void noAuton() {}
+void noAuton() {
+    
+    // DELETE THIS AT COMPETITION
+    autonTest();
+    
+}
 
 // Elevation Bar: +
 void elevationBar() {}
@@ -72,7 +77,6 @@ void loadZone() {
     pros::delay(250);
     driveL.moveVoltage(0);
     driveR.moveVoltage(0);
-
 
     // drive4->moveDistance(-24_in); //back robot out of starting tile
     // drive4->turnAngle(45_deg); //turn robot to face load zone
@@ -98,7 +102,7 @@ void scoreGoal() {
 // Load Zone + Bar: LEFT+
 void loadZoneAndBar() {
     drive4->moveDistance(-24_in);  // back robot out of starting tile
-    drive4->turnAngle(45_deg);    // turn robot to face load zone
+    drive4->turnAngle(45_deg);     // turn robot to face load zone
     drive4->moveDistance(34_in);   // move robot to load zone or 24*sqrt(2)
     intake.moveVelocity(100);      // start intake
     pros::delay(2800);
@@ -106,8 +110,8 @@ void loadZoneAndBar() {
     drive4->moveDistance(-34_in);  // back robot out of load zone
     intake.moveVelocity(-100);     // release ball
     pros::delay(1272);
-    intake.moveVelocity(0);        // keep arm up for elevation
-    drive4->turnAngle(-45_deg);     // move toward elevation bar
+    intake.moveVelocity(0);      // keep arm up for elevation
+    drive4->turnAngle(-45_deg);  // move toward elevation bar
     drive4->moveDistance(24_in);
     drive4->turnAngle(-90_deg);
     drive4->moveDistance(24_in);
@@ -120,19 +124,73 @@ void scoreGoalAndBar() {}
  * @brief Synnchronous drive function that corrects for differences in friction
  * @param target The target voltage to drive at, [-12000, 12000]
  */
-void driveStraight(int target) {  // adjust for differences in friction
-    int leftAdj = 1.06,
-        rightAdj = 1;
-    driveL.moveVoltage(target * leftAdj);
-    driveR.moveVoltage(target * rightAdj);
+void driveStraight(int targetL, int targetR) {  // adjust for differences in friction
+    int leftAdj = 1,
+        rightAdj = 1.1;
+    driveL.moveVoltage((int)(targetL * leftAdj));
+    driveR.moveVoltage((int)(targetR * rightAdj));
 }
 
 void autonTest() {
-    drive4->getModel()->tank(0, 0); // use only 4m drive
-    while (true) {
-        ptoGroup.moveVelocity(200);
-        pros::delay((int)(2000.0 / 3.3));
-    }
+        // begin auton dev
+
+    // forward 1 tile
+    driveStraight(6000, 6000);
+    pros::delay(750);
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // 45 degrees left
+    driveStraight(-6000, 6000);
+    pros::delay(250);  // 500 for a 90 deg turn
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // move triangle distance
+    driveStraight(6000, 6000);
+    pros::delay(354);  // 750 / 3 * sqrt(2)
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // 45 degrees right
+    driveStraight(6000, -6000);
+    pros::delay(250);  // 500 for a 90 deg turn
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // forward 1/2 tile
+    driveStraight(6000, 6000);
+    pros::delay(375);
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // expand wings
+    wingsSolenoid.set_value(true);
+
+    // forward 1/4 tile
+    driveStraight(6000, 6000);
+    pros::delay(188);
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // arc motion right until have turned 90 degrees
+    driveStraight(6000, 0);
+    pros::delay(500);  // modify this value experimentally
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // forward 1/4 tile into goal
+    driveStraight(6000, 6000);
+    pros::delay(188);
+    driveStraight(0, 0);
+    pros::delay(20);
+
+    // back out of goal
+    driveStraight(-6000, -6000);
+    pros::delay(188);
+    driveStraight(0, 0);
+
+    // end auton dev
 }
 
 #endif
