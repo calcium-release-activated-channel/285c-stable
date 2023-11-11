@@ -169,14 +169,14 @@ void scoreGoal() {
     pros::delay(20);
 
     // forward 1/4 tile into goal
-    driveStraight(6000, 6000);
-    pros::delay(825);
+    driveStraight(12000, 12000);
+    pros::delay(500);
     driveStraight(0, 0);
     pros::delay(20);
 
     // back out of goal
-    driveStraight(-6000, -6000);
-    pros::delay(825);
+    driveStraight(-12000, -12000);
+    pros::delay(500);
     driveStraight(0, 0);
 }
 
