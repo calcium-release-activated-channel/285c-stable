@@ -60,23 +60,22 @@ void autonomous() {
 }
 
 // No Autonomous
-void noAuton() {
-    
-    // DELETE THIS AT COMPETITION
-    autonTest();
-    return;
-}
+void noAuton() {}
 
 // Elevation Bar: +
 void elevationBar() {}
 
 // Load Zone: LEFT
 void loadZone() {
-    driveL.moveVoltage(4000);
-    driveR.moveVoltage(4000);
-    pros::delay(250);
-    driveL.moveVoltage(0);
-    driveR.moveVoltage(0);
+    // driveL.moveVoltage(4000);
+    // driveR.moveVoltage(4000);
+    // pros::delay(250);
+    // driveL.moveVoltage(0);
+    // driveR.moveVoltage(0);
+
+    drive4->getModel()->tank(200, 200);
+    pros::delay(1000);
+    drive4->getModel()->tank(0, 0);
 
     // drive4->moveDistance(-24_in); //back robot out of starting tile
     // drive4->turnAngle(45_deg); //turn robot to face load zone
@@ -94,46 +93,6 @@ void loadZone() {
 
 // Score Goal: RIGHT
 void scoreGoal() {
-    drive4->getModel()->tank(200, 200);
-    pros::delay(1000);
-    drive4->getModel()->tank(0, 0);
-}
-
-// Load Zone + Bar: LEFT+
-void loadZoneAndBar() {
-    drive4->moveDistance(-24_in);  // back robot out of starting tile
-    drive4->turnAngle(45_deg);     // turn robot to face load zone
-    drive4->moveDistance(34_in);   // move robot to load zone or 24*sqrt(2)
-    intake.moveVelocity(100);      // start intake
-    pros::delay(2800);
-    intake.moveVelocity(0);        // stop intake
-    drive4->moveDistance(-34_in);  // back robot out of load zone
-    intake.moveVelocity(-100);     // release ball
-    pros::delay(1272);
-    intake.moveVelocity(0);      // keep arm up for elevation
-    drive4->turnAngle(-45_deg);  // move toward elevation bar
-    drive4->moveDistance(24_in);
-    drive4->turnAngle(-90_deg);
-    drive4->moveDistance(24_in);
-}
-
-// Score Goal + Bar: RIGHT+
-void scoreGoalAndBar() {}
-
-/**
- * @brief Synnchronous drive function that corrects for differences in friction
- * @param target The target voltage to drive at, [-12000, 12000]
- */
-void driveStraight(int targetL, int targetR) {  // adjust for differences in friction
-    int leftAdj = 1,
-        rightAdj = 1.1;
-    driveL.moveVoltage((int)(targetL * leftAdj));
-    driveR.moveVoltage((int)(targetR * rightAdj));
-}
-
-void autonTest() {
-        // begin auton dev
-
     // forward 2 tile
     driveStraight(6000, 6000);
     pros::delay(1500);
@@ -219,9 +178,28 @@ void autonTest() {
     driveStraight(-6000, -6000);
     pros::delay(825);
     driveStraight(0, 0);
+}
 
-    return;
+// Load Zone + Bar: LEFT+
+void loadZoneAndBar() {
+}
 
+// Score Goal + Bar: RIGHT+
+void scoreGoalAndBar() {}
+
+/**
+ * @brief Synchronous drive function that corrects for differences in friction
+ * @param target The target voltage to drive at, [-12000, 12000]
+ */
+void driveStraight(int targetL, int targetR) {  // adjust for differences in friction
+    int leftAdj = 1,
+        rightAdj = 1.1;
+    driveL.moveVoltage((int)(targetL * leftAdj));
+    driveR.moveVoltage((int)(targetR * rightAdj));
+}
+
+void autonTest() {
+    // begin auton dev
     // end auton dev
 }
 

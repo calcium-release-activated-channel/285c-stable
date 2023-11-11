@@ -11,9 +11,9 @@
 const std::vector<std::string> autonModes = {
     "* No Auton   ",
     "  (+) Elev Br",
-    "- (L) LoadZn ",
+    "* (L) LoadZn ",
     "* (R) ScrGoal",
-    "- (L+) LdZ+Br",
+    "  (L+) LdZ+Br",
     "  (R+) ScG+Br",
     "  Auton Test "};
 int autMode = 0;
