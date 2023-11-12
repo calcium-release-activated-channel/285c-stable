@@ -9,10 +9,10 @@
  * " " == Not programme
  */
 const std::vector<std::string> autonModes = {
+    "* (R) ScrGoal", 
     "* No Auton   ",
-    "  (+) Elev Br",
     "* (L) LoadZn ",
-    "* (R) ScrGoal",
+    "  (+) Elev Br",
     "  (L+) LdZ+Br",
     "  (R+) ScG+Br",
     "  Auton Test "};

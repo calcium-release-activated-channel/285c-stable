@@ -33,16 +33,16 @@ void autonomous() {
     taskKill();  // in case we ever go from driver -> auton -> driver
     switch (autMode) {
         case 0:
-            noAuton();
+            scoreGoal();
             break;
         case 1:
-            elevationBar();
+            noAuton();
             break;
         case 2:
             loadZone();
             break;
         case 3:
-            scoreGoal();
+            elevationBar();
             break;
         case 4:
             loadZoneAndBar();
