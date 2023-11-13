@@ -23,7 +23,7 @@
 # Controls
 
 - Run Catapult      L1
-- Toggle Wings      L2
+- Toggle Wings      L2  <--- needs to be remapped
 - Toggle PTO        B
 - Reverse Catapult  ↓
 - Move Arm Out      R1
