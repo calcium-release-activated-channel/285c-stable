@@ -37,8 +37,8 @@ void taskKill() {
 
 /*** BEGIN PORTS AND CONTROLLER DECLARATIONS ***/
 // controls
-ControllerButton cataBtn = ControllerDigital::L1;
-ControllerButton wingsBtn = ControllerDigital::L2; // this must be changed; l2 button is broken
+ControllerButton cataBtn = ControllerDigital::up;
+ControllerButton wingsBtn = ControllerDigital::L1;
 ControllerButton armOutBtn = ControllerDigital::R1;
 ControllerButton armInBtn = ControllerDigital::R2;
 ControllerButton ptoBtn = ControllerDigital::B;
