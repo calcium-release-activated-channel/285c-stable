@@ -4,10 +4,9 @@
 #include "opcontrol.h"
 
 #include "main.h"
+#include "pid.h"
 
 pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
-// pros::Task cataSubhandlerTask = pros::Task(cataSubhandler_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Cata Subhandler");
-// pros::Task intakeSubhandlerTask = pros::Task(intakeSubhandler_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Intake Subhandler");
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -37,14 +36,9 @@ void opcontrol() {
     // define opcontrol vars and reset from auton
     wingsDeployed = false;
     wingsSolenoid.set_value(wingsDeployed);
-    cataEnabled = true;
-    ptoSolenoid.set_value(!cataEnabled);
-    // intakeMode = 0;
 
     // run task(s)
     buttonInterruptsTask.resume();
-    // cataSubhandlerTask.resume();
-    // intakeSubhandlerTask.resume();
 
     // drive
     /*
@@ -53,132 +47,50 @@ void opcontrol() {
     autonTest();
     */
     while (true) {
-        float l = controller.getAnalog(ControllerAnalog::leftY);
-        float r = controller.getAnalog(ControllerAnalog::rightY);
-        // drive
-        drive4->getModel()->tank(l, r);
-        if (!cataEnabled)
-            drive7->getModel()->tank(l, r);
+        drive->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightY));
         pros::delay(20);
     }
 }
 
 void buttonInterrupts_fn(void* param) {
+    double kp = 0.1,
+           ki = 0.0,
+           kd = 0.0,
+           ibound = 0,
+           obound = 12000;
+    PID fwPID(kp, ki, kd, ibound, obound);
+    fwPID.setTarget(12000);
+
     while (true) {
-        if (cataBtn.isPressed()) {
-            if (cataEnabled) {
-                ptoGroup.moveVelocity(-135); // has not been driver practice tested
-                // pros::delay((int)(2000.0 / 3.3));  // change this value
-                pros::delay(100);
-            }
-            else {
-                controller.rumble(".");
-                controller.setText(0, 0, "Cata Disabled");
-            }
-            printf("cataBtn pressed\n");
+        if (fwBtn.isPressed() && !fwRevBtn.isPressed()) {
+            // fw.moveVelocity(600);
+            fw.moveVoltage(fwPID.calculatePID(fw.getVoltage()));
+            printf("%f,%f\n", pros::millis(), fw.getActualVelocity());
+            printf("fwBtn pressed\n");
         }
-        if (cataBtn.changedToReleased()) {
-            ptoGroup.moveVelocity(0);
+        if (fwBtn.changedToReleased() || fwRevBtn.changedToReleased()) {
+            fw.moveVelocity(0);
         }
-        if (cataRevBtn.isPressed()) {
-            if (cataEnabled) {
-                ptoGroup.moveVelocity(135); // has not been driver practice tested
-                // pros::delay((int)(2000.0 / 3.3));  // change this value
-                pros::delay(100);
-            }
-            else {
-                controller.rumble(".");
-                controller.setText(0, 0, "Cata Disabled");
-            }
-            printf("cataBtn pressed\n");
-        }
-        if (cataRevBtn.changedToReleased()) {
-            ptoGroup.moveVelocity(0);
+        if (fwRevBtn.isPressed() && !fwBtn.isPressed()) {
+            fw.moveVelocity(-300);
+            printf("fwRevBtn pressed\n");
         }
         if (wingsBtn.changedToPressed()) {
             wingsDeployed = !wingsDeployed;
             wingsSolenoid.set_value(wingsDeployed);
             printf("wingsBtn pressed\twingsDeployed = %s\n", wingsDeployed ? "true" : "false");
         }
-        if (ptoBtn.changedToPressed()) {
-            cataEnabled = !cataEnabled;
-            ptoSolenoid.set_value(!cataEnabled);
-            printf("ptoBtn pressed\t cataEnabled = %s\n", cataEnabled ? "true" : "false");
-            controller.setText(0, 0, cataEnabled ? "Cata Enabled " : "Cata Disabled");
+        if (intakeBtn.isPressed() && !outtakeBtn.isPressed()) {
+            intake.moveVelocity(600);
         }
-        if (armInBtn.isPressed() && !armOutBtn.isPressed()) {
-            intake.moveVelocity(200);
+        if (outtakeBtn.isPressed() && !intakeBtn.isPressed()) {
+            intake.moveVelocity(-600);
         }
-        if (armOutBtn.isPressed() && !armInBtn.isPressed()) {
-            intake.moveVelocity(-200);
-        }
-        if (armInBtn.changedToReleased() || armOutBtn.changedToReleased()) {
+        if (intakeBtn.changedToReleased() || outtakeBtn.changedToReleased()) {
             intake.moveVelocity(0);
         }
-        // if (intakeBtn.changedToPressed()) {
-        //     switch (intakeMode) {
-        //         case -1:
-        //             intakeMode = 1;
-        //             break;
-        //         case 0:
-        //             intakeMode = 1;
-        //             break;
-        //         case 1:
-        //             intakeMode = 0;
-        //             break;
-        //         default:
-        //             intakeMode = 0;
-        //             break;
-        //     }
-        // }
-        // if (outtakeBtn.changedToPressed()) {
-        //     switch (intakeMode) {
-        //         case -1:
-        //             intakeMode = 0;
-        //             break;
-        //         case 0:
-        //             intakeMode = -1;
-        //             break;
-        //         case 1:
-        //             intakeMode = -1;
-        //             break;
-        //         default:
-        //             intakeMode = 0;
-        //             break;
-        //     }
-        // }
         pros::delay(20);
     }
 }
-
-// not working
-// void cataSubhandler_fn(void* param) {
-//     while (runCata) {
-//         ptoGroup.moveVelocity(-200);
-//         pros::delay((int)(2000.0 / 3.3));  // change this value
-//     }
-//     ptoGroup.moveVelocity(0);
-//     pros::delay(100);
-// }
-
-// void intakeSubhandler_fn(void* param) {
-//     while (true) {
-//         switch (intakeMode) {
-//             case -1:
-//                 intake.moveVelocity(-600);
-//                 break;
-//             case 0:
-//                 intake.moveVelocity(0);
-//                 break;
-//             case 1:
-//                 intake.moveVelocity(600);
-//                 break;
-//             default:
-//                 intake.moveVelocity(0);
-//                 break;
-//         }
-//         pros::delay(100);
-//     }
-// }
 
 #endif

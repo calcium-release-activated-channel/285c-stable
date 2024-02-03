@@ -2,36 +2,32 @@
 
 ## Motors
 
-- Left Front Drive  1
-- Left Back Drive   2
-- Right Front Drive 11
-- Right Back Drive  12
+- Left Front Drive  11
+- Left Upper Drive  12
+- Left Back Drive   13
+- Right Front Drive 20
+- Right Upper Drive 19
+- Right Back Drive  18
 
-- Left PTO 11W      3
-- Left PTO 5.5W     4
-- Right PTO 11W     13
-- Right PTO 5.5W    14
+- Flywheel          14
+- Intake            17
 
-- Intake            5
+## Semsors
+
+- IMU               15
+- Radio             16
 
 ## 3-Wire
 
-- Auton Selector    E
-- PTO Solenoid      C
-- Wings Solenoid    D
+- Endgame Solenoid  F
+- Wings Solenoid    G
+- Auton Selector    H
 
 # Controls
 
-- Run Catapult      L1
-- Toggle Wings      L2  <--- needs to be remapped
-- Toggle PTO        B
+- Flywheel          ↑
 - Reverse Catapult  ↓
-- Move Arm Out      R1
-- Move Arm In       R2
-
-# Removed
-
-## Nonexistent
-
-- Sweeper Solenoid  E 
-- Low Hang Solenoid F
+- Toggle Wings      L1
+- Initiate Endgame  B
+- Intake            R1
+- Outtake           R2

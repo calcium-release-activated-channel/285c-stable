@@ -73,9 +73,9 @@ void loadZone() {
     // driveL.moveVoltage(0);
     // driveR.moveVoltage(0);
 
-    drive4->getModel()->tank(200, 200);
+    drive->getModel()->tank(200, 200);
     pros::delay(1000);
-    drive4->getModel()->tank(0, 0);
+    drive->getModel()->tank(0, 0);
 
     // drive4->moveDistance(-24_in); //back robot out of starting tile
     // drive4->turnAngle(45_deg); //turn robot to face load zone

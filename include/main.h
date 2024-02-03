@@ -63,49 +63,40 @@ using namespace okapi;
 extern "C" {
 #endif
 
-#define driveSetting AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees
+#define motorSetting AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees
 
 extern int autMode;
 
 void taskKill();
 extern pros::Task buttonInterruptsTask;
-// extern pros::Task armAutonTask;
-// extern pros::Task cataSubhandlerTask;
-// extern pros::Task intakeSubhandlerTask;
 
 extern Controller controller;
 
-extern ControllerButton cataBtn;
-extern ControllerButton armOutBtn;
-extern ControllerButton armInBtn;
-extern ControllerButton ptoBtn;
+extern ControllerButton fwBtn;
+extern ControllerButton fwRevBtn;
+extern ControllerButton intakeBtn;
+extern ControllerButton outtakeBtn;
 extern ControllerButton wingsBtn;
-extern ControllerButton cataRevBtn;
 
 extern Motor driveLF;
+extern Motor driveLU;
 extern Motor driveLB;
 extern Motor driveRF;
+extern Motor driveRU;
 extern Motor driveRB;
 
-extern Motor ptoFullL;
-extern Motor ptoHalfL;
-extern Motor ptoFullR;
-extern Motor ptoHalfR;
-
+extern Motor fw;
 extern Motor intake;
 
-extern pros::adi::DigitalIn autonSelector;
-extern pros::adi::DigitalOut ptoSolenoid;
-extern pros::adi::DigitalOut wingsSolenoid;
-// extern pros::adi::DigitalOut sweepSolenoid;
-// extern pros::adi::DigitalOut lowHangSolenoid;
+extern pros::ADIDigitalIn autonSelector;
+extern pros::Imu imuObj;
+extern pros::ADIDigitalOut elevSolenoid;
+extern pros::ADIDigitalOut wingsSolenoid;
 
 extern MotorGroup driveL;
 extern MotorGroup driveR;
-extern MotorGroup ptoGroup;
 
-extern std::shared_ptr<ChassisController> drive4;
-extern std::shared_ptr<ChassisController> drive7;
+extern std::shared_ptr<ChassisController> drive;
 
 void autonomous();
 void initialize();

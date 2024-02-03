@@ -1,6 +1,7 @@
 #ifndef INITIALIZE_CPP
 #define INITIALIZE_CPP
 
+// #include "lemlib/api.hpp"
 #include "main.h"
 
 /* Key:
@@ -37,79 +38,73 @@ void taskKill() {
 
 /*** BEGIN PORTS AND CONTROLLER DECLARATIONS ***/
 // controls
-ControllerButton cataBtn = ControllerDigital::up;
+ControllerButton fwBtn = ControllerDigital::up;
+ControllerButton fwRevBtn = ControllerDigital::down;
 ControllerButton wingsBtn = ControllerDigital::L1;
-ControllerButton armOutBtn = ControllerDigital::R1;
-ControllerButton armInBtn = ControllerDigital::R2;
-ControllerButton ptoBtn = ControllerDigital::B;
-ControllerButton cataRevBtn = ControllerDigital::down;
+ControllerButton intakeBtn = ControllerDigital::R1;
+ControllerButton outtakeBtn = ControllerDigital::R2;
+ControllerButton endgameBtn = ControllerDigital::B;
 
 // ports
 // drive motors
-int8_t driveLFPort = 1;
-int8_t driveLBPort = 2;
-int8_t driveRFPort = 11;
-int8_t driveRBPort = 12;
+int8_t driveLFPort = 11;
+int8_t driveLUPort = 12;
+int8_t driveLBPort = 13;
+int8_t driveRFPort = 20;
+int8_t driveRUPort = 19;
+int8_t driveRBPort = 18;
 
-// transmission motors
-int8_t ptoFullLPort = 3;
-int8_t ptoHalfLPort = 4;
-int8_t ptoFullRPort = 13;
-int8_t ptoHalfRPort = 14;
-
-// intake motor
-int8_t intakePort = 5;
+// auxiliary motors
+int8_t intakePort = 17;
+int8_t fwPort = 14;
 
 // sensors (implicit conversion)
-uint8_t autonSelectorPort = 'E';
-uint8_t ptoSolenoidPort = 'C';
-uint8_t wingsSolenoidPort = 'D';
-// uint8_t sweepSolenoidPort = 'E';
-// uint8_t lowHangSolenoidPort = 'F';
+uint8_t autonSelectorPort = 'H';
+uint8_t wingsPort = 'G';
+uint8_t elevPort = 'F';
+uint8_t imuPort = 15;
 /*** END PORTS AND CONTROLLER DECLARATIONS ***/
 
 // controller
 Controller controller;
 
 // motor
-Motor driveLF(driveLFPort, true, driveSetting);
-Motor driveLB(driveLBPort, true, driveSetting);
-Motor driveRF(driveRFPort, false, driveSetting);
-Motor driveRB(driveRBPort, false, driveSetting);
+Motor driveLF(driveLFPort, true, motorSetting);
+Motor driveLU(driveLUPort, false, motorSetting);
+Motor driveLB(driveLBPort, true, motorSetting);
+Motor driveRF(driveRFPort, false, motorSetting);
+Motor driveRU(driveRUPort, true, motorSetting);
+Motor driveRB(driveRBPort, false, motorSetting);
 
-Motor ptoFullL(ptoFullLPort, true, driveSetting);
-Motor ptoHalfL(ptoHalfLPort, false, driveSetting);
-Motor ptoFullR(ptoFullRPort, true, driveSetting);
-Motor ptoHalfR(ptoHalfRPort, false, driveSetting);
-
-Motor intake(intakePort, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
+Motor fw(fwPort, false, motorSetting);
+Motor intake(intakePort, true, motorSetting);
 
 // sensors
-pros::adi::DigitalIn autonSelector(autonSelectorPort);
+pros::ADIDigitalIn autonSelector(autonSelectorPort);
+pros::Imu imuObj(imuPort);
 
 // solenoid
-pros::adi::DigitalOut ptoSolenoid(ptoSolenoidPort);
-pros::adi::DigitalOut wingsSolenoid(wingsSolenoidPort);
-// pros::adi::DigitalOut sweepSolenoid(sweepSolenoidPort);
-// pros::adi::DigitalOut lowHangSolenoid(lowHangSolenoidPort);
+pros::ADIDigitalOut elevSolenoid(elevPort);
+pros::ADIDigitalOut wingsSolenoid(wingsPort);
 
 // motor groups
-MotorGroup driveL({driveLF, driveLB});
-MotorGroup driveR({driveRF, driveRB});
-MotorGroup ptoGroup({ptoFullL, ptoFullR, ptoHalfL, ptoHalfR});
-MotorGroup ptoGroupL({ptoFullL, ptoHalfL});
-MotorGroup ptoGroupR({ptoFullR, ptoHalfR});
+MotorGroup driveL({driveLF, driveLU, driveLB});
+MotorGroup driveR({driveRF, driveRU, driveRB});
+
+// // PID
+// lemlib::Drivetrain_t drivetrain{
+//     &driveL,   // left drivetrain motors
+//     &driveR,  // right drivetrain motors
+//     9.5,            // track width
+//     4,          // wheel diameter
+//     300            // wheel rpm
+// };
 
 // drive
-std::shared_ptr<ChassisController> drive4 = okapi::ChassisControllerBuilder()
+std::shared_ptr<ChassisController> drive = okapi::ChassisControllerBuilder()
                                                 .withMotors(driveL, driveR)
-                                                .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 12_in}, imev5GreenTPR})  // 4 inch wheels, 12 inch track width, where track width refers to the distance between the left and right wheels measured from the centers of the wheels
-                                                .withMaxVelocity(200)
-                                                .build();
-std::shared_ptr<ChassisController> drive7 = okapi::ChassisControllerBuilder()
-                                                .withMotors(ptoGroupL, ptoGroupR)
-                                                .withDimensions({AbstractMotor::gearset::green, (72.0 / 48.0)}, {{4_in, 12_in}, imev5GreenTPR})  // this may cause issues
-                                                .withMaxVelocity(200)
+                                                .withDimensions({AbstractMotor::gearset::blue, (36.0 / 72.0)}, {{4_in, 9.5_in}, imev5BlueTPR})  // 4 inch wheels, 12 inch track width, where track width refers to the distance between the left and right wheels measured from the centers of the wheels
+                                                .withMaxVelocity(600)
                                                 .build();
 
 /**
@@ -122,12 +117,12 @@ void initialize() {
     taskKill();  // kill initialized programs
     driveL.setBrakeMode(AbstractMotor::brakeMode::brake);
     driveR.setBrakeMode(AbstractMotor::brakeMode::brake);
-    ptoGroup.setBrakeMode(AbstractMotor::brakeMode::brake);
     intake.setBrakeMode(AbstractMotor::brakeMode::brake);
+    fw.setBrakeMode(AbstractMotor::brakeMode::brake);
     // idk if i have to retract pneumatics but just in case ig
-    ptoSolenoid.set_value(false);
+    elevSolenoid.set_value(false);
     wingsSolenoid.set_value(false);
-    // sweepSolenoid.set_value(false);
+    imuObj.reset();
 }
 
 /**
