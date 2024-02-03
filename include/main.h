@@ -88,6 +88,7 @@ extern Motor driveRB;
 extern Motor fw;
 extern Motor intake;
 
+// ADIDigitalIn is for V3 (deprecated in V4)
 extern pros::ADIDigitalIn autonSelector;
 extern pros::Imu imuObj;
 extern pros::ADIDigitalOut elevSolenoid;
