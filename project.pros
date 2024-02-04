@@ -222,7 +222,7 @@
     },
     "upload_options": {
       "description": "285C's Over Under Code",
-      "after": "screen",
+      "after": "run",
       "icon": "pros",
       "slot": 1
     }

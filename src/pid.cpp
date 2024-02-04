@@ -16,10 +16,9 @@ void PID::setTarget(double new_target) {
 }
 
 double PID::calculatePID(double new_current) {
-    uint32_t time = pros::millis();
     double current = new_current;
     double error = this->target - current;
-    if (kI != 0) {
+    if (kI != 0.0) {
         integral += error;
         // printf("raw integral: %.3f\n", integral); // debug
         integral = (error == 0 || abs(integral) > Ibound) ? 0 : integral;
@@ -28,15 +27,14 @@ double PID::calculatePID(double new_current) {
     }
     else
         integral = 0;
-    double derivative = (error - prevError) / (time - prevTime);
+    double derivative = (error - prevError);
     double output = kP * error + kI * integral - kD * derivative;
     // debug
     // printf("using value kP = %.3f, kI = %.3f, kD = %.3f, Ibound = %.3f\n", kP, kI, kD, Ibound);
-    printf("error: %.3f\t | integral: %.3f\t | derivative: %.3f | output: %.3f\n", error, integral, derivative, output);
-    // printf("%f,%f", time, new_current);
+    // printf("error: %.3f\t | integral: %.3f\t | derivative: %.3f | output: %.3f\n", error, integral, derivative, output);
+    // printf("%f,%f\n", error, output);
     this->prevError = error;
-    this->prevTime = time;
-    return (outBound == 0) ? output : (output > outBound) ? outBound * copysign(1.0, output)
+    return (outBound == 0) ? output : (abs(output) > abs(outBound)) ? outBound * copysign(1.0, output)
                                                           : output;
 }
 

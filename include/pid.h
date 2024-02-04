@@ -19,7 +19,6 @@ class PID {
     // used per loop -----------------------------
     double integral;   /** Integral value */
     double prevError;  /** Previous distance to target*/
-    uint32_t prevTime; /** Previous time measured*/
 
    public:
     /**

@@ -53,20 +53,25 @@ void opcontrol() {
 }
 
 void buttonInterrupts_fn(void* param) {
-    double kp = 0.1,
+    double kp = 20.0,
            ki = 0.0,
-           kd = 0.0,
+           kd = 0.5, // 1.5
            ibound = 0,
-           obound = 12000;
+           obound = 600;
     PID fwPID(kp, ki, kd, ibound, obound);
-    fwPID.setTarget(12000);
+    fwPID.setTarget(500);
+    // int log = 0;
 
     while (true) {
         if (fwBtn.isPressed() && !fwRevBtn.isPressed()) {
             // fw.moveVelocity(600);
-            fw.moveVoltage(fwPID.calculatePID(fw.getVoltage()));
-            printf("%f,%f\n", pros::millis(), fw.getActualVelocity());
-            printf("fwBtn pressed\n");
+            double x = fw.getActualVelocity();
+            fw.moveVelocity(fwPID.calculatePID(x));
+            // if (log++ % 3 == 0) {
+            // printf("%d\n",fw.getVoltage());
+            printf("%d,%.1f\n", pros::millis(), x);
+            // }
+            // printf("fwBtn pressed\n");
         }
         if (fwBtn.changedToReleased() || fwRevBtn.changedToReleased()) {
             fw.moveVelocity(0);
