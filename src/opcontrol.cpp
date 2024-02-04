@@ -47,7 +47,7 @@ void opcontrol() {
     autonTest();
     */
     while (true) {
-        drive->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightY));
+        model->tank(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightY));
         pros::delay(20);
     }
 }
