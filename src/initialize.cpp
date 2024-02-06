@@ -9,12 +9,11 @@
  * " " == Not programme
  */
 const std::vector<std::string> autonModes = {
-    "* (R) ScrGoal",
+    "- (R) ScrGoal",
     "* No Auton   ",
-    "* (L) LoadZn ",
-    "  (+) Elev Br",
+    "  (L) LoadZn ",
     "  (L+) LdZ+Br",
-    "  (R+) ScG+Br",
+    "- (R+) ScG+Br",
     "  Auton Test "};
 int autMode = 0;
 
@@ -156,7 +155,8 @@ void initialize() {
     // idk if i have to retract pneumatics but just in case ig
     elevSolenoid.set_value(false);
     wingsSolenoid.set_value(false);
-    imuObj.reset();
+    // imuObj.reset();
+    autonChassis.calibrate();
 }
 
 /**

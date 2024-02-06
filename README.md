@@ -6,7 +6,7 @@ Hosts 285C's code for Over Under
 
 Get the latest version of the [Over Under Game Manual](https://link.vex.com/docs/23-24/vrc-over-under/GameManual)
 
-If the version is higher than Version 2.1 (10/03/2023), please let me know so we can review the changes.
+If the version is higher than Version 3.0 (01/30/2024), please let me know so we can review the changes.
 
 <details>
   <summary><h2>Commonly Referenced Images</h2></summary>
@@ -71,6 +71,39 @@ If the version is higher than Version 2.1 (10/03/2023), please let me know so we
 </details>
 <details>
   <summary><h2>Game Manual Changes</h2></summary>
+
+### Version 3.0 - January 30, 2024
+ > - Added a red box to the definition of Holding to clarify intent
+ > - Updated the definition of Goal to provide clarity
+ > - Removed the yellow Elevation Bar Cap from VRC and Skills Matches. This change does NOT apply to VEX U, or VAIRC
+ > - Updated various figures throughout to remove the Elevation Bar Cap
+ > - Updated the definitions of Elevation Bar Cap and Elevated
+ > - Updated \<SG6> with a new table and violation notes to clarify intent
+ > - Updated \<SG9> to clarify intent
+ > - Updated \<R18f> to clarify intent
+ > - Updated \<SG11> to reduce the Short Barrier protection time from 30 seconds to 15 seconds
+ > - Updated the VEX U Field Setup rule modifications to specify that Elevation Bar Caps must be used
+
+### Version 2.2 - December 5, 2023
+ > - Added a red box to the definition of Holding to clarify intent
+ > - Updated Figure 16 to provide clarity
+ > - Updated \<SC7> to clarify intent in rewarding the Autonomous Win Point
+ > - Updated \<G7> to clarify clamping onto Match Load Bars
+ > - Added a note to \<G11> to clarify that Robots may be manually disabled during the Autonomous Period
+ > - Updated \<SG3> to clarify that Triballs may not be intentionally / repeatedly removed from the field
+ > - Updated \<SG6> to clarify intent, and provide links to official Q&A clarifications
+ > - Added a new violation note and note to \<SG7> to clarify that excess Triballs should be removed in a non-scored position
+ > - Updated \<SG11> to clarify intent, and explain the process of assigning an Elevation Tier if no other Robots are Elevated
+ > - Updated \<R7> to include SD Cards installed in the V5 Robot Brain
+ > - Updated \<R9> to clarify that license plates must be placed on opposing sides of the Robot
+ > - Updated \<T23> to clarify intent
+ > - Updated Sheet 15 in Appendix A to show the correct field layout
+ > - Updated \<RSC4> to clarify that \<SG8> does not apply for Robot Skills Matches
+ > - Updated \<VUR1> to include \<VUR14>
+ > - Updated \<VUR4> to include C-Channel and U-Channel
+ > - Removed Bearings from \<VUR9>, and added them to a new rule, \<VUR14> to clarify intent.
+ > - Updated \<VAIT2> to clarify intent
+ > - Minor typo / formatting fixes
 
 ### Version 2.1 - October 3, 2023
  > - Added a new definition of Plowing
@@ -144,28 +177,6 @@ To build the code, run:
 ```
 prosv5 make
 ```
-
-> ⚠️ If you get a build error that looks like the following message:
->
-> ```
-> Linking hot project with ./bin/cold.package.elf and libc,libm,libpros,okapilib [ERRORS]
-> %appdata%/local/programs/pros/toolchain/usr/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/bin/ld.exe: bin/   > opcontrol.cpp.o: in function `std::__shared_ptr<okapi::ChassisModel, (__gnu_cxx::_Lock_policy)0>::~__shared_ptr()':
-> %appdata%\local\programs\pros\toolchain\usr\arm-none-eabi\include\c++\10.2.1\bits/shared_ptr_base.h:1183: undefined reference   > to `drive'
->
-> collect2.exe: error: ld returned 1 exit status
-> make: *** [common.mk:252: bin/hot.package.elf] Error 1
-> ERROR - pros.cli.build:make - Failed to make project: Exit Code 2
-> Error: Failed to build
-> Sentry is attempting to send 1 pending error messages
-> Waiting up to 2 seconds
-> Press Ctrl-Break to quit
-> ```
->
-> I'll need Jay to verify this, but based on my troubleshooting, it's because the undefined object in question was defined in a function, not "globally" within the file.
->
-> I suspect this means that, despite declaring the object in the header file with `extern`, the object is not actually defined until the function is called, causing the compiler to freak out.
->
-> To remedy this, simply move the declaration of the object to the top of the file (but below the `#ifndef`/`#define` or `#include` statements), outside of any functions. This will cause the object to be defined when the file is compiled, and the compiler will stop screaming at you.
 
 ## 2. Upload the binary
 

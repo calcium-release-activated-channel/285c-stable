@@ -42,15 +42,12 @@ void autonomous() {
             loadZone();
             break;
         case 3:
-            elevationBar();
-            break;
-        case 4:
             loadZoneAndBar();
             break;
-        case 5:
+        case 4:
             scoreGoalAndBar();
             break;
-        case 6:
+        case 5:
             autonTest();
             break;
         default:
@@ -62,15 +59,41 @@ void autonomous() {
 // No Autonomous
 void noAuton() {}
 
-// Elevation Bar: +
-void elevationBar() {}
-
 // Load Zone: LEFT
 void loadZone() {
+    autonChassis.setPose(-36,-60,360-45);
+    autonChassis.moveTo(-60,-36,1000);
+    autonChassis.turnTo(-60,0,1000);
+    autonChassis.moveTo(-60,-30,1000);
+    autonChassis.moveTo(-60,-36,1000);
+    // need to move near load bar
+    // and expand wings
+    // then remove ball by moving next to it
+    // then retract wings
+    // then move to elev bar
+    // then expand wings to touch bar
 }
 
 // Score Goal: RIGHT
 void scoreGoal() {
+    autonChassis.setPose(36,-60,0);
+    autonChassis.moveTo(36,-24,1000); // might need to slow down
+    pros::delay(500);
+    autonChassis.moveTo(36,-36,1000);
+    pros::delay(500);
+    autonChassis.turnTo(24,-24,1000);
+    pros::delay(500);
+    autonChassis.moveTo(24,-24,1000);
+    wingsSolenoid.set_value(true);
+    pros::delay(500);
+    autonChassis.turnTo(24,0,1000);
+    pros::delay(500);
+    autonChassis.moveTo(24,-12,1000);
+    pros::delay(500);
+    autonChassis.turnTo(60,-12,1000);
+    pros::delay(500);
+    autonChassis.moveTo(45,-12,1000);
+
 }
 
 // Load Zone + Bar: LEFT+
@@ -78,7 +101,20 @@ void loadZoneAndBar() {
 }
 
 // Score Goal + Bar: RIGHT+
-void scoreGoalAndBar() {}
+void scoreGoalAndBar() {
+    scoreGoal();
+    wingsSolenoid.set_value(false);
+    autonChassis.moveTo(36,-12,1000);
+    pros::delay(500);
+    autonChassis.turnTo(36,-60,1000);
+    pros::delay(500);
+    autonChassis.moveTo(36,-60,1000);
+    pros::delay(500);
+    autonChassis.turnTo(10,-60,1000);
+    pros::delay(500);
+    autonChassis.moveTo(10,-60,1000);
+    wingsSolenoid.set_value(true);
+}
 
 /**
  * @brief Synchronous drive function that corrects for differences in friction
@@ -91,9 +127,9 @@ void driveStraight(int targetL, int targetR) {  // adjust for differences in fri
     driveR.moveVoltage((int)(targetR * rightAdj));
 }
 
-void autonTest() {
+void autonTest() { // to tune PID
     // begin auton dev
-    autonChassis.getPose();
+    scoreGoal();
     // end auton dev
 }
 
