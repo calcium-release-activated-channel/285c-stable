@@ -41,11 +41,8 @@ void opcontrol() {
     buttonInterruptsTask.resume();
 
     // drive
-    /*
-    pros::delay(10000);
-    printf("running task\n");
     autonTest();
-    */
+    
     while (true) {
         model->tank(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightY));
         pros::delay(20);

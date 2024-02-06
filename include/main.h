@@ -41,6 +41,7 @@
  */
 #include "okapi/api.hpp"
 #include "pros/api_legacy.h"
+#include "lemlib/api.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -96,6 +97,8 @@ extern pros::ADIDigitalOut wingsSolenoid;
 
 extern MotorGroup driveL;
 extern MotorGroup driveR;
+
+extern lemlib::Chassis autonChassis;
 
 extern std::shared_ptr<ChassisController> drive;
 extern std::shared_ptr<okapi::ChassisModel> model;
