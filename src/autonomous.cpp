@@ -128,8 +128,15 @@ void driveStraight(int targetL, int targetR) {  // adjust for differences in fri
 }
 
 void autonTest() { // to tune PID
+    /// PID
+    autonChassis.setPose(36,-60,0);
+    // motion tuning
+    autonChassis.moveTo(36,-36,1000);
+    // angular tuning
+    // autonChassis.turnTo(0,-60,1000);
+    
     // begin auton dev
-    scoreGoal();
+    // scoreGoal();
     // end auton dev
 }
 
