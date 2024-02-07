@@ -40,10 +40,10 @@ void autonomous() {
     intake.moveVelocity(0);
     switch (autMode) {
         case 0:
-            noAuton();
+            scoreGoal();
             break;
         case 1:
-            scoreGoal();
+            noAuton();
             break;
         case 2:
             loadZone();
@@ -61,8 +61,6 @@ void autonomous() {
             noAuton();
             break;
     }
-
-    scoreGoal();
 }
 
 // No Autonomous
@@ -104,32 +102,31 @@ void scoreGoal() {
     // try pros::delay(50);
 
     // alliance ball
-    autonChassis.moveTo(36,-12,1000);
-    autonChassis.turnTo(72,-12,1000);
-    autonChassis.moveTo(GOAL_X_POS,-12,1000);
+    autonChassis.moveTo(36,-14,1000);
+    autonChassis.turnTo(72,-14,1000);
+    autonChassis.moveTo(GOAL_X_POS+5,-14,1000);
     intake.moveVelocity(-600);
     pros::delay(200);
-    intake.moveVelocity(0);
     // (24,0) ball
-    autonChassis.moveTo(36,-12,1000);
-    autonChassis.turnTo(24,-6,1000);
+    autonChassis.moveTo(36,-14,1000);
+    autonChassis.turnTo(24,-2,1000);
     intake.moveVelocity(600);
-    autonChassis.moveTo(24,-6,1000);
-    intake.moveVelocity(0);
-    autonChassis.turnTo(72,-6,1000);
-    autonChassis.moveTo(GOAL_X_POS,-6,1000);
+    autonChassis.moveTo(24,-2,1000);
+    autonChassis.turnTo(72,-2,1000);
+    autonChassis.moveTo(GOAL_X_POS,-2,1000);
     intake.moveVelocity(-600);
     // (4,0) ball
-    autonChassis.moveTo(24, -6, 1000);
-    autonChassis.turnTo(0,-6,1000);
+    autonChassis.moveTo(24, -2, 1000);
+    autonChassis.turnTo(0,-2,1000);
     intake.moveVelocity(600);
-    autonChassis.moveTo(10,-6,1000);
-    intake.moveVelocity(0);
-    autonChassis.turnTo(72,-6,1000);
-    autonChassis.moveTo(GOAL_X_POS,-6,1000);
+    autonChassis.moveTo(6,-2,1000);
+    autonChassis.turnTo(72,-2,1000);
+    autonChassis.moveTo(GOAL_X_POS,-2,1000);
+    intake.moveVelocity(-600);
     // elevation bar
-    autonChassis.moveTo(36,-6,1000);
-    autonChassis.turnTo(0,-6,1000);
+    autonChassis.moveTo(20,-2,1000);
+    autonChassis.turnTo(0,-2,1000);
+    intake.moveVelocity(0);
     // autonChassis.turnTo(36,-72,1000);
     // autonChassis.moveTo(36,-60,1000);
     // autonChassis.turnTo(0,-60,1000);
@@ -171,7 +168,6 @@ void driveStraight(int targetL, int targetR) {  // adjust for differences in fri
 
 void autonTest() {
     // begin auton dev
-    // scoreGoal();
     // end auton dev
 }
 

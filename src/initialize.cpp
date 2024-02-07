@@ -9,12 +9,12 @@
  * " " == Not programme
  */
 const std::vector<std::string> autonModes = {
-    "- (R) ScrGoal",
+    "* (R) ScrGoal",
     "* No Auton   ",
     "  (L) LoadZn ",
-    "  (L+) LdZ+Br",
-    "- (R+) ScG+Br",
-    "  Auton Test "};
+    "X (L+) LdZ+Br",
+    "X (R+) ScG+Br",
+    "X Auton Test "};
 int autMode = 0;
 
 /*** TASK SAFETY ***/
