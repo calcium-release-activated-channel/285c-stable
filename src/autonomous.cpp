@@ -68,6 +68,7 @@ void noAuton() {}
 
 // Load Zone: LEFT
 void loadZone() {
+    /* PID auton
     autonChassis.setPose(-36,-60,360-45);
     autonChassis.moveTo(-60,-36,1000);
     autonChassis.turnTo(-60,0,1000);
@@ -79,6 +80,14 @@ void loadZone() {
     // then retract wings
     // then move to elev bar
     // then expand wings to touch bar
+    */
+
+    // simple auton
+    driveL.move_velocity(600);
+    driveR.move_velocity(600);
+    pros::delay(1000);
+    driveL.move_velocity(0);
+    driveR.move_velocity(0);
 }
 
 // Score Goal: RIGHT
