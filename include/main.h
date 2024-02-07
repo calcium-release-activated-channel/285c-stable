@@ -78,30 +78,27 @@ extern ControllerButton fwRevBtn;
 extern ControllerButton intakeBtn;
 extern ControllerButton outtakeBtn;
 extern ControllerButton wingsBtn;
+extern ControllerButton endgameBtn;
 
-extern Motor driveLF;
-extern Motor driveLU;
-extern Motor driveLB;
-extern Motor driveRF;
-extern Motor driveRU;
-extern Motor driveRB;
+extern pros::Motor driveLF;
+extern pros::Motor driveLU;
+extern pros::Motor driveLB;
+extern pros::Motor driveRF;
+extern pros::Motor driveRU;
+extern pros::Motor driveRB;
+extern pros::Motor_Group driveL;
+extern pros::Motor_Group driveR;
 
 extern Motor fw;
 extern Motor intake;
 
 // ADIDigitalIn is for V3 (deprecated in V4)
 extern pros::ADIDigitalIn autonSelector;
-extern pros::Imu imuObj;
 extern pros::ADIDigitalOut elevSolenoid;
 extern pros::ADIDigitalOut wingsSolenoid;
-
-extern MotorGroup driveL;
-extern MotorGroup driveR;
+extern pros::Imu imuObj;
 
 extern lemlib::Chassis autonChassis;
-
-extern std::shared_ptr<ChassisController> drive;
-extern std::shared_ptr<okapi::ChassisModel> model;
 
 void autonomous(void);
 void initialize(void);

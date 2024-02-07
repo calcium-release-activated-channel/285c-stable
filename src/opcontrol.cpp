@@ -40,56 +40,51 @@ void opcontrol() {
     // run task(s)
     buttonInterruptsTask.resume();
 
-    // drive
-    autonTest();
-    
     while (true) {
-        model->tank(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightY));
+        driveL.move((int)(127 * controller.getAnalog(ControllerAnalog::leftY)));
+        driveR.move((int)(127 * controller.getAnalog(ControllerAnalog::rightY)));
         pros::delay(20);
     }
 }
 
 void buttonInterrupts_fn(void* param) {
-    double kp = 20.0,
-           ki = 0.0,
-           kd = 0.5, // 1.5
-           ibound = 0,
-           obound = 600;
+    double 
+        kp = 20.0,
+        ki = 0.0,
+        kd = 0.5,  // 1.5
+        ibound = 0,
+        obound = 600;
     PID fwPID(kp, ki, kd, ibound, obound);
     fwPID.setTarget(500);
     // int log = 0;
 
     while (true) {
         if (fwBtn.isPressed() && !fwRevBtn.isPressed()) {
-            // fw.moveVelocity(600);
+            fw.moveVelocity(600);
             double x = fw.getActualVelocity();
-            fw.moveVelocity(fwPID.calculatePID(x));
+            // fw.moveVelocity(fwPID.calculatePID(x));
             // if (log++ % 3 == 0) {
-            // printf("%d\n",fw.getVoltage());
             printf("%d,%.1f\n", pros::millis(), x);
             // }
-            // printf("fwBtn pressed\n");
         }
-        if (fwBtn.changedToReleased() || fwRevBtn.changedToReleased()) {
+        if (fwBtn.changedToReleased() || fwRevBtn.changedToReleased())
             fw.moveVelocity(0);
-        }
-        if (fwRevBtn.isPressed() && !fwBtn.isPressed()) {
+        if (fwRevBtn.isPressed() && !fwBtn.isPressed())
             fw.moveVelocity(-300);
-            printf("fwRevBtn pressed\n");
-        }
+        if (intakeBtn.isPressed() && !outtakeBtn.isPressed())
+            intake.moveVelocity(600);
+        if (outtakeBtn.isPressed() && !intakeBtn.isPressed())
+            intake.moveVelocity(-600);
+        if (intakeBtn.changedToReleased() || outtakeBtn.changedToReleased())
+            intake.moveVelocity(0);
         if (wingsBtn.changedToPressed()) {
             wingsDeployed = !wingsDeployed;
             wingsSolenoid.set_value(wingsDeployed);
-            printf("wingsBtn pressed\twingsDeployed = %s\n", wingsDeployed ? "true" : "false");
         }
-        if (intakeBtn.isPressed() && !outtakeBtn.isPressed()) {
-            intake.moveVelocity(600);
-        }
-        if (outtakeBtn.isPressed() && !intakeBtn.isPressed()) {
-            intake.moveVelocity(-600);
-        }
-        if (intakeBtn.changedToReleased() || outtakeBtn.changedToReleased()) {
-            intake.moveVelocity(0);
+        if (endgameBtn.changedToPressed()) {
+            elevSolenoid.set_value(true);
+            pros::delay(500);
+            wingsSolenoid.set_value(true);
         }
         pros::delay(20);
     }

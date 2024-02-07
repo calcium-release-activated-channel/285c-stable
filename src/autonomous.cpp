@@ -3,6 +3,8 @@
 
 #include "autonomous.h"
 
+#define GOAL_X_POS 40
+
 /**
  * <SC7> An Autonomous Win Point is awarded to any Alliance that has completed the
  * following tasks at the end of the Autonomous Period:
@@ -31,12 +33,17 @@
 
 void autonomous() {
     taskKill();  // in case we ever go from driver -> auton -> driver
+    intake.moveVelocity(-600);
+    pros::delay(200);
+    intake.moveVelocity(600);
+    pros::delay(750);
+    intake.moveVelocity(0);
     switch (autMode) {
         case 0:
-            scoreGoal();
+            noAuton();
             break;
         case 1:
-            noAuton();
+            scoreGoal();
             break;
         case 2:
             loadZone();
@@ -54,6 +61,8 @@ void autonomous() {
             noAuton();
             break;
     }
+
+    scoreGoal();
 }
 
 // No Autonomous
@@ -77,23 +86,56 @@ void loadZone() {
 // Score Goal: RIGHT
 void scoreGoal() {
     autonChassis.setPose(36,-60,0);
-    autonChassis.moveTo(36,-24,1000); // might need to slow down
-    pros::delay(500);
-    autonChassis.moveTo(36,-36,1000);
-    pros::delay(500);
-    autonChassis.turnTo(24,-24,1000);
-    pros::delay(500);
-    autonChassis.moveTo(24,-24,1000);
-    wingsSolenoid.set_value(true);
-    pros::delay(500);
-    autonChassis.turnTo(24,0,1000);
-    pros::delay(500);
-    autonChassis.moveTo(24,-12,1000);
-    pros::delay(500);
-    autonChassis.turnTo(60,-12,1000);
-    pros::delay(500);
-    autonChassis.moveTo(45,-12,1000);
+    // autonChassis.moveTo(36,-36,1000);
+    // pros::delay(100);
+    // autonChassis.turnTo(24,-24,1000);
+    // pros::delay(100);
+    // autonChassis.moveTo(24,-24,1000);
+    // wingsSolenoid.set_value(true);
+    // pros::delay(100);
+    // autonChassis.turnTo(24,0,1000);
+    // pros::delay(100);
+    // autonChassis.moveTo(24,-6,1000);
+    // pros::delay(100);
+    // autonChassis.turnTo(60,-6,1000);
+    // pros::delay(100);
+    // autonChassis.moveTo(45,-6,1000);
 
+    // try pros::delay(50);
+
+    // alliance ball
+    autonChassis.moveTo(36,-12,1000);
+    autonChassis.turnTo(72,-12,1000);
+    autonChassis.moveTo(GOAL_X_POS,-12,1000);
+    intake.moveVelocity(-600);
+    pros::delay(200);
+    intake.moveVelocity(0);
+    // (24,0) ball
+    autonChassis.moveTo(36,-12,1000);
+    autonChassis.turnTo(24,-6,1000);
+    intake.moveVelocity(600);
+    autonChassis.moveTo(24,-6,1000);
+    intake.moveVelocity(0);
+    autonChassis.turnTo(72,-6,1000);
+    autonChassis.moveTo(GOAL_X_POS,-6,1000);
+    intake.moveVelocity(-600);
+    // (4,0) ball
+    autonChassis.moveTo(24, -6, 1000);
+    autonChassis.turnTo(0,-6,1000);
+    intake.moveVelocity(600);
+    autonChassis.moveTo(10,-6,1000);
+    intake.moveVelocity(0);
+    autonChassis.turnTo(72,-6,1000);
+    autonChassis.moveTo(GOAL_X_POS,-6,1000);
+    // elevation bar
+    autonChassis.moveTo(36,-6,1000);
+    autonChassis.turnTo(0,-6,1000);
+    // autonChassis.turnTo(36,-72,1000);
+    // autonChassis.moveTo(36,-60,1000);
+    // autonChassis.turnTo(0,-60,1000);
+    // wingsSolenoid.set_value(true);
+    // intake.moveVelocity(600);
+    // autonChassis.moveTo(8,-60,1000);
 }
 
 // Load Zone + Bar: LEFT+
@@ -105,13 +147,13 @@ void scoreGoalAndBar() {
     scoreGoal();
     wingsSolenoid.set_value(false);
     autonChassis.moveTo(36,-12,1000);
-    pros::delay(500);
+    pros::delay(100);
     autonChassis.turnTo(36,-60,1000);
-    pros::delay(500);
+    pros::delay(100);
     autonChassis.moveTo(36,-60,1000);
-    pros::delay(500);
+    pros::delay(100);
     autonChassis.turnTo(10,-60,1000);
-    pros::delay(500);
+    pros::delay(100);
     autonChassis.moveTo(10,-60,1000);
     wingsSolenoid.set_value(true);
 }
@@ -123,18 +165,11 @@ void scoreGoalAndBar() {
 void driveStraight(int targetL, int targetR) {  // adjust for differences in friction
     int leftAdj = 1,
         rightAdj = 1;
-    driveL.moveVoltage((int)(targetL * leftAdj));
-    driveR.moveVoltage((int)(targetR * rightAdj));
+    driveL.move_voltage((int)(targetL * leftAdj));
+    driveR.move_voltage((int)(targetR * rightAdj));
 }
 
-void autonTest() { // to tune PID
-    /// PID
-    autonChassis.setPose(36,-60,0);
-    // motion tuning
-    autonChassis.moveTo(36,-36,1000);
-    // angular tuning
-    // autonChassis.turnTo(0,-60,1000);
-    
+void autonTest() {
     // begin auton dev
     // scoreGoal();
     // end auton dev
