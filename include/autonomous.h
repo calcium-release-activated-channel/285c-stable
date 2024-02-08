@@ -7,7 +7,7 @@ void noAuton();
 void loadZone();
 void scoreGoal();
 void loadZoneAndBar();
-void scoreGoalAndBar();
+void loadZoneElims();
 void autonTest();
 void driveStraight(int targetL, int targetR);
 

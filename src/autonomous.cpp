@@ -52,7 +52,7 @@ void autonomous() {
             loadZoneAndBar();
             break;
         case 4:
-            scoreGoalAndBar();
+            loadZoneElims();
             break;
         case 5:
             autonTest();
@@ -136,12 +136,6 @@ void scoreGoal() {
     autonChassis.moveTo(20,-2,1000);
     autonChassis.turnTo(0,-2,1000);
     intake.moveVelocity(0);
-    // autonChassis.turnTo(36,-72,1000);
-    // autonChassis.moveTo(36,-60,1000);
-    // autonChassis.turnTo(0,-60,1000);
-    // wingsSolenoid.set_value(true);
-    // intake.moveVelocity(600);
-    // autonChassis.moveTo(8,-60,1000);
 }
 
 // Load Zone + Bar: LEFT+
@@ -149,19 +143,23 @@ void loadZoneAndBar() {
 }
 
 // Score Goal + Bar: RIGHT+
-void scoreGoalAndBar() {
-    scoreGoal();
-    wingsSolenoid.set_value(false);
-    autonChassis.moveTo(36,-12,1000);
-    pros::delay(100);
-    autonChassis.turnTo(36,-60,1000);
-    pros::delay(100);
-    autonChassis.moveTo(36,-60,1000);
-    pros::delay(100);
-    autonChassis.turnTo(10,-60,1000);
-    pros::delay(100);
-    autonChassis.moveTo(10,-60,1000);
-    wingsSolenoid.set_value(true);
+// void scoreGoalAndBar() {
+//     scoreGoal();
+//     wingsSolenoid.set_value(false);
+//     autonChassis.moveTo(36,-12,1000);
+//     pros::delay(100);
+//     autonChassis.turnTo(36,-60,1000);
+//     pros::delay(100);
+//     autonChassis.moveTo(36,-60,1000);
+//     pros::delay(100);
+//     autonChassis.turnTo(10,-60,1000);
+//     pros::delay(100);
+//     autonChassis.moveTo(10,-60,1000);
+//     wingsSolenoid.set_value(true);
+// }
+
+void loadZoneElims() {
+
 }
 
 /**

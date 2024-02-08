@@ -6,15 +6,15 @@
 /* Key:
  * "*" == Working
  * "-" == Programmed but untested
- * " " == Not programme
+ * " " == Not programmed
  */
 const std::vector<std::string> autonModes = {
     "* (R) ScrGoal",
     "* No Auton   ",
-    "  (L) LoadZn ",
-    "X (L+) LdZ+Br",
-    "X (R+) ScG+Br",
-    "X Auton Test "};
+    "- (L) LoadZn ",
+    "  (L+) LdZ+Br",
+    "  (R') LdZElm",
+    "  Auton Test "};
 int autMode = 0;
 
 /*** TASK SAFETY ***/
