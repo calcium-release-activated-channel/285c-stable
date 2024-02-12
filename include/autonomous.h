@@ -4,6 +4,7 @@
 #include "main.h"
 
 void noAuton();
+void simpleAuton();
 void loadZone();
 void scoreGoal();
 void loadZoneAndBar();

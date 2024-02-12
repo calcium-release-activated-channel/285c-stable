@@ -46,15 +46,18 @@ void autonomous() {
             noAuton();
             break;
         case 2:
-            loadZone();
+            simpleAuton();
             break;
         case 3:
-            loadZoneAndBar();
+            loadZone();
             break;
         case 4:
-            loadZoneElims();
+            loadZoneAndBar();
             break;
         case 5:
+            loadZoneElims();
+            break;
+        case 6:
             autonTest();
             break;
         default:
@@ -65,6 +68,15 @@ void autonomous() {
 
 // No Autonomous
 void noAuton() {}
+
+// Simple Auton
+void simpleAuton() {
+    driveL.move_velocity(600);
+    driveR.move_velocity(600);
+    pros::delay(1000);
+    driveL.move_velocity(0);
+    driveR.move_velocity(0);
+}
 
 // Load Zone: LEFT
 void loadZone() {
@@ -82,34 +94,20 @@ void loadZone() {
     // then expand wings to touch bar
     */
 
-    // simple auton
-    driveL.move_velocity(600);
-    driveR.move_velocity(600);
-    pros::delay(1000);
-    driveL.move_velocity(0);
-    driveR.move_velocity(0);
+    autonChassis.setPose(-36, -60, 360-45);
+    autonChassis.moveTo(-60,-36,1000);
+    autonChassis.turnTo(-60, 0, 1000);
+    autonChassis.moveTo(-60,-26,1000);
+    autonChassis.moveTo(-60,-36,1000);
+    autonChassis.turnTo(-36, -60, 1000);
+    autonChassis.moveTo(-36,-60,1000);
+    autonChassis.turnTo(0,-60,1000);
+    autonChassis.moveTo(-14, -60, 1000);
 }
 
 // Score Goal: RIGHT
 void scoreGoal() {
     autonChassis.setPose(36,-60,0);
-    // autonChassis.moveTo(36,-36,1000);
-    // pros::delay(100);
-    // autonChassis.turnTo(24,-24,1000);
-    // pros::delay(100);
-    // autonChassis.moveTo(24,-24,1000);
-    // wingsSolenoid.set_value(true);
-    // pros::delay(100);
-    // autonChassis.turnTo(24,0,1000);
-    // pros::delay(100);
-    // autonChassis.moveTo(24,-6,1000);
-    // pros::delay(100);
-    // autonChassis.turnTo(60,-6,1000);
-    // pros::delay(100);
-    // autonChassis.moveTo(45,-6,1000);
-
-    // try pros::delay(50);
-
     // alliance ball
     autonChassis.moveTo(36,-14,1000);
     autonChassis.turnTo(72,-14,1000);
@@ -142,25 +140,7 @@ void scoreGoal() {
 void loadZoneAndBar() {
 }
 
-// Score Goal + Bar: RIGHT+
-// void scoreGoalAndBar() {
-//     scoreGoal();
-//     wingsSolenoid.set_value(false);
-//     autonChassis.moveTo(36,-12,1000);
-//     pros::delay(100);
-//     autonChassis.turnTo(36,-60,1000);
-//     pros::delay(100);
-//     autonChassis.moveTo(36,-60,1000);
-//     pros::delay(100);
-//     autonChassis.turnTo(10,-60,1000);
-//     pros::delay(100);
-//     autonChassis.moveTo(10,-60,1000);
-//     wingsSolenoid.set_value(true);
-// }
-
-void loadZoneElims() {
-
-}
+void loadZoneElims() {}
 
 /**
  * @brief Synchronous drive function that corrects for differences in friction
@@ -176,6 +156,14 @@ void driveStraight(int targetL, int targetR) {  // adjust for differences in fri
 void autonTest() {
     // begin auton dev
     // end auton dev
+    autonChassis.setPose(-36, -60, 0);
+    autonChassis.moveTo(-36, -12, 1000);
+    autonChassis.turnTo(0, -12, 1000);
+    wingsSolenoid.set_value(true);
+    autonChassis.moveTo(-10, -12, 1000);
+    wingsSolenoid.set_value(false);
+    autonChassis.turnTo(-72, -12, 1000);
+    autonChassis.moveTo(-40, -60, 1000);
 }
 
 #endif
