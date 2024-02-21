@@ -33,6 +33,7 @@ void taskKill() {
 // controls
 ControllerButton fwBtn = ControllerDigital::up;
 ControllerButton fwRevBtn = ControllerDigital::down;
+ControllerButton fwSlow = ControllerDigital::left;
 ControllerButton wingsBtn = ControllerDigital::L1;
 ControllerButton intakeBtn = ControllerDigital::R1;
 ControllerButton outtakeBtn = ControllerDigital::R2;

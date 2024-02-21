@@ -75,6 +75,7 @@ extern Controller controller;
 
 extern ControllerButton fwBtn;
 extern ControllerButton fwRevBtn;
+extern ControllerButton fwSlow;
 extern ControllerButton intakeBtn;
 extern ControllerButton outtakeBtn;
 extern ControllerButton wingsBtn;

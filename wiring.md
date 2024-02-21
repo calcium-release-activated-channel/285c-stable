@@ -27,6 +27,7 @@
 
 - Flywheel          ↑
 - Reverse Catapult  ↓
+- Bowl Flywheel     ←
 - Toggle Wings      L1
 - Initiate Endgame  B
 - Intake            R1
