@@ -59,7 +59,7 @@ void buttonInterrupts_fn(void* param) {
     // int log = 0;
 
     while (true) {
-        if (fwBtn.isPressed() && !fwRevBtn.isPressed() && !fwSlow.isPressed()) {
+        if (fwBtn.isPressed() && !fwSlow.isPressed()) {
             fw.moveVelocity(600);
             double x = fw.getActualVelocity();
             // fw.moveVelocity(fwPID.calculatePID(x));
@@ -67,12 +67,10 @@ void buttonInterrupts_fn(void* param) {
             printf("%d,%.1f\n", pros::millis(), x);
             // }
         }
-        if (fwBtn.changedToReleased() || fwRevBtn.changedToReleased() || fwSlow.changedToReleased())
+        if (fwBtn.changedToReleased() || fwSlow.changedToReleased())
             fw.moveVelocity(0);
-        if (fwRevBtn.isPressed() && !fwBtn.isPressed() && !fwSlow.isPressed())
-            fw.moveVelocity(-300);
-        if (fwSlow.isPressed() && !fwBtn.isPressed() && !fwRevBtn.isPressed())
-            fw.moveVelocity(300);
+        if (fwSlow.isPressed() && !fwBtn.isPressed())
+            fw.moveVelocity(450);
         if (intakeBtn.isPressed() && !outtakeBtn.isPressed())
             intake.moveVelocity(600);
         if (outtakeBtn.isPressed() && !intakeBtn.isPressed())

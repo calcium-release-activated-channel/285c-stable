@@ -26,8 +26,7 @@
 # Controls
 
 - Flywheel          ↑
-- Reverse Catapult  ↓
-- Bowl Flywheel     ←
+- Bowl Flywheel     L2
 - Toggle Wings      L1
 - Initiate Endgame  B
 - Intake            R1

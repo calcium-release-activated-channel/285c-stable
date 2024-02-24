@@ -29,7 +29,7 @@ class PID {
      * @param Ibound Range of acceptable integral values
      * @param outBound [Optional] Range of acceptable output values (Voltage: 12000, Ignore: 0)
      */
-    PID(double kP, double kI, double kD, double Ibound, double outBound = 0);
+    PID(double kP, double kI, double kD, double Ibound = 0.0, double outBound = 0.0);
     /**
      * @brief Function to set the target of the PID controller.
      * @param new_target The new target

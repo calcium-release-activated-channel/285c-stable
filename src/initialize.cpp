@@ -14,9 +14,9 @@ const std::vector<std::string> autonModes = {
     "* SimpleAuton",
     "- (L) LoadZn ",
     "  (L+) LdZ+Br",
-    "  (R') LdZElm",
+    "- (R') LdZElm",
     "  Auton Test "};
-int autMode = 0;
+int autMode = 3;
 
 /*** TASK SAFETY ***/
 // safety
@@ -32,8 +32,7 @@ void taskKill() {
 /*** BEGIN PORTS AND CONTROLLER DECLARATIONS ***/
 // controls
 ControllerButton fwBtn = ControllerDigital::up;
-ControllerButton fwRevBtn = ControllerDigital::down;
-ControllerButton fwSlow = ControllerDigital::left;
+ControllerButton fwSlow = ControllerDigital::L2;
 ControllerButton wingsBtn = ControllerDigital::L1;
 ControllerButton intakeBtn = ControllerDigital::R1;
 ControllerButton outtakeBtn = ControllerDigital::R2;
