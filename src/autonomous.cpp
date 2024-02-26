@@ -118,7 +118,7 @@ void loadZone() {
 
 // Score Goal: RIGHT
 void scoreGoal() {
-    autonChassis.setPose(36,-60-4,0);
+    autonChassis.setPose(36,-60,0);
     // alliance ball
     autonChassis.moveTo(36,-14,1000);
     autonChassis.turnTo(72,-14,1000);
