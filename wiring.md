@@ -9,25 +9,19 @@
 - Right Upper Drive 19
 - Right Back Drive  18
 
-- Flywheel          14
+- Conveyer          14
 - Intake            17
 
 ## Semsors
 
-- IMU               15
-- Radio             16
+- Radio             Arbitrary
 
 ## 3-Wire
 
-- Endgame Solenoid  F
-- Wings Solenoid    G
-- Auton Selector    H
+- Mo-goal Solenoid  F
 
 # Controls
 
-- Flywheel          ↑
-- Bowl Flywheel     L2
-- Toggle Wings      L1
-- Initiate Endgame  B
-- Intake            R1
-- Outtake           R2
+- Toggle Clamp      B  - toggle
+- Intake            R1 - hold
+- Outtake           R2 - hold

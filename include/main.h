@@ -41,7 +41,6 @@
  */
 #include "okapi/api.hpp"
 #include "pros/api_legacy.h"
-#include "lemlib/api.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -64,41 +63,30 @@ using namespace okapi;
 extern "C" {
 #endif
 
-#define motorSetting AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees
-
-extern int autMode;
+extern bool clampState;
 
 void taskKill();
 extern pros::Task buttonInterruptsTask;
 
 extern Controller controller;
 
-extern ControllerButton fwBtn;
-extern ControllerButton fwSlow;
+extern ControllerButton clampBtn;
 extern ControllerButton intakeBtn;
 extern ControllerButton outtakeBtn;
-extern ControllerButton wingsBtn;
-extern ControllerButton endgameBtn;
 
-extern pros::Motor driveLF;
-extern pros::Motor driveLU;
-extern pros::Motor driveLB;
-extern pros::Motor driveRF;
-extern pros::Motor driveRU;
-extern pros::Motor driveRB;
-extern pros::Motor_Group driveL;
-extern pros::Motor_Group driveR;
+extern Motor driveLF;
+extern Motor driveLU;
+extern Motor driveLB;
+extern Motor driveRF;
+extern Motor driveRU;
+extern Motor driveRB;
+extern MotorGroup driveL;
+extern MotorGroup driveR;
 
-extern Motor fw;
-extern Motor intake;
+extern Motor conveyor;  // convert to pros
+extern Motor intake;    // convert to pros
 
-// ADIDigitalIn is for V3 (deprecated in V4)
-extern pros::ADIDigitalIn autonSelector;
-extern pros::ADIDigitalOut elevSolenoid;
-extern pros::ADIDigitalOut wingsSolenoid;
-extern pros::Imu imuObj;
-
-extern lemlib::Chassis autonChassis;
+extern pros::ADIDigitalOut clampSolenoid;
 
 void autonomous(void);
 void initialize(void);
