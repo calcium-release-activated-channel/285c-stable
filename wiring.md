@@ -2,7 +2,7 @@
 
 ## Motors
 
-- Left Front Drive  20
+- Left Front Drive  18
 - Left Upper Drive  9
 - Left Back Drive   19
 - Right Front Drive 11

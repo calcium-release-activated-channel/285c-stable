@@ -18,7 +18,7 @@ ControllerButton clampBtn = ControllerDigital::L1;
 
 // ports
 // drive motors
-int8_t driveLFPort = 20;
+int8_t driveLFPort = 18;
 int8_t driveLUPort = 9;
 int8_t driveLBPort = 19;
 int8_t driveRFPort = 11;
