@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "285c-stable",
+    "project_name": "285c-stable-arcade",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -312,7 +312,7 @@
       "after": "screen",
       "description": "Backup barebones code for 285C",
       "icon": "clawbot",
-      "slot": 1
+      "slot": 3
     },
     "use_early_access": false
   }

@@ -29,8 +29,11 @@ void opcontrol() {
     buttonInterruptsTask.resume();
 
     while (true) { 
-        driveL.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::leftY)));
-        driveR.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::rightY)));
+        // tank drive
+        // driveL.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::leftY)));
+        // driveR.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::rightY)));
+        // arcade drive
+        drive->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX));
         pros::delay(20);
     }
 }

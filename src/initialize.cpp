@@ -56,6 +56,13 @@ MotorGroup driveR({driveRF, driveRU, driveRB});
 
 bool clampState = false; // this is the default state (open)
 
+// arcade drive
+std::shared_ptr<ChassisController> drive = okapi::ChassisControllerBuilder()
+                                               .withMotors(driveL, driveR)
+                                               .withDimensions({AbstractMotor::gearset::blue, (36.0 / 60.0)}, { {3.25_in, 14_in}, imev5BlueTPR })
+                                               .withMaxVelocity(600)
+                                               .build();
+
 void initialize() {
     taskKill();  // kill initialized programs
     intake.setBrakeMode(AbstractMotor::brakeMode::brake);

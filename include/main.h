@@ -88,6 +88,9 @@ extern Motor intake;    // convert to pros
 
 extern pros::ADIDigitalOut clampSolenoid;
 
+// arcade drive
+extern std::shared_ptr<ChassisController> drive;
+
 void autonomous(void);
 void initialize(void);
 void disabled(void);
