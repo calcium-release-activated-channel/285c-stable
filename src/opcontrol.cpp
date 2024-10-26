@@ -45,8 +45,10 @@ void buttonInterrupts_fn(void* param) {
             intake.moveVelocity(600);
             conveyor.moveVelocity(450);
         }
-        if (outtakeBtn.isPressed() && !intakeBtn.isPressed())
+        if (outtakeBtn.isPressed() && !intakeBtn.isPressed()) {
             intake.moveVelocity(-600);
+            conveyor.moveVelocity(-450);
+        }
         if (clampBtn.changedToPressed()) {
             clampState = !clampState;
             clampSolenoid.set_value(clampState);
