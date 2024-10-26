@@ -7,6 +7,9 @@ pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TAS
 
 void autonomous() {
     taskKill();
+    drive->getModel()->tank(.5, .5);
+    pros::delay(750);
+    drive->getModel()->tank(0, 0);
 }
 
 void opcontrol() {
