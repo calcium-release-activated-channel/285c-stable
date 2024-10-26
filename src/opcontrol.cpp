@@ -5,7 +5,9 @@
 
 pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Button Interrupt Manager");
 
-void autonomous() {}
+void autonomous() {
+    taskKill();
+}
 
 void opcontrol() {
     taskKill();  // in case bot disconnects or we go from auton -> driver
@@ -35,16 +37,16 @@ void opcontrol() {
 
 void buttonInterrupts_fn(void* param) {
     while (true) {
+        if (intakeBtn.changedToReleased() || outtakeBtn.changedToReleased()) {
+            intake.moveVelocity(0);
+            conveyor.moveVelocity(0);
+        }
         if (intakeBtn.isPressed() && !outtakeBtn.isPressed()) {
             intake.moveVelocity(600);
             conveyor.moveVelocity(600);
         }
         if (outtakeBtn.isPressed() && !intakeBtn.isPressed())
             intake.moveVelocity(-600);
-        if (intakeBtn.changedToReleased() || outtakeBtn.changedToReleased()) {
-            intake.moveVelocity(0);
-            conveyor.moveVelocity(0);
-        }
         if (clampBtn.changedToPressed()) {
             clampState = !clampState;
             clampSolenoid.set_value(clampState);

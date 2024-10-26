@@ -14,7 +14,7 @@ void taskKill() {
 // controls
 ControllerButton intakeBtn = ControllerDigital::R1;
 ControllerButton outtakeBtn = ControllerDigital::R2;
-ControllerButton clampBtn = ControllerDigital::B;
+ControllerButton clampBtn = ControllerDigital::L1;
 
 // ports
 // drive motors

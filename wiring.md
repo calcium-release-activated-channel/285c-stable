@@ -22,6 +22,6 @@
 
 # Controls
 
-- Toggle Clamp      B  - toggle
+- Toggle Clamp      L1 - toggle
 - Intake            R1 - hold
 - Outtake           R2 - hold
