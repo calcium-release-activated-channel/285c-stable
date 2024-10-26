@@ -18,16 +18,16 @@ ControllerButton clampBtn = ControllerDigital::L1;
 
 // ports
 // drive motors
-int8_t driveLFPort = 11;
-int8_t driveLUPort = 12;
-int8_t driveLBPort = 13;
-int8_t driveRFPort = 20;
-int8_t driveRUPort = 19;
-int8_t driveRBPort = 18;
+int8_t driveLFPort = 20;
+int8_t driveLUPort = 9;
+int8_t driveLBPort = 19;
+int8_t driveRFPort = 11;
+int8_t driveRUPort = 13;
+int8_t driveRBPort = 12;
 
 // auxiliary motors
-int8_t intakePort = 17;
-int8_t conveyorPort = 14;
+int8_t intakePort = 10;
+int8_t conveyorPort = 5;
 
 // sensors (implicit conversion)
 uint8_t clampPort = 'F';
