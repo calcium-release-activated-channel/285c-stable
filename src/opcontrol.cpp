@@ -43,7 +43,7 @@ void buttonInterrupts_fn(void* param) {
         }
         if (intakeBtn.isPressed() && !outtakeBtn.isPressed()) {
             intake.moveVelocity(600);
-            conveyor.moveVelocity(600);
+            conveyor.moveVelocity(450);
         }
         if (outtakeBtn.isPressed() && !intakeBtn.isPressed())
             intake.moveVelocity(-600);
