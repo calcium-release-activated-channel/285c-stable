@@ -18,12 +18,12 @@ ControllerButton clampBtn = ControllerDigital::L1;
 
 // ports
 // drive motors
-int8_t driveLFPort = 20;
+int8_t driveLFPort = 18;
 int8_t driveLUPort = 9;
 int8_t driveLBPort = 19;
 int8_t driveRFPort = 11;
 int8_t driveRUPort = 13;
-int8_t driveRBPort = 12;
+int8_t driveRBPort = 14;
 
 // auxiliary motors
 int8_t intakePort = 8;
@@ -55,6 +55,13 @@ MotorGroup driveL({driveLF, driveLU, driveLB});
 MotorGroup driveR({driveRF, driveRU, driveRB});
 
 bool clampState = false; // this is the default state (open)
+
+// arcade drive
+std::shared_ptr<ChassisController> drive = okapi::ChassisControllerBuilder()
+                                               .withMotors(driveL, driveR)
+                                               .withDimensions({AbstractMotor::gearset::blue, (36.0 / 60.0)}, { {3.25_in, 14_in}, imev5BlueTPR })
+                                               .withMaxVelocity(600)
+                                               .build();
 
 void initialize() {
     taskKill();  // kill initialized programs

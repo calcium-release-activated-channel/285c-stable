@@ -7,6 +7,9 @@ pros::Task buttonInterruptsTask = pros::Task(buttonInterrupts_fn, (void*)"", TAS
 
 void autonomous() {
     taskKill();
+    drive->getModel()->tank(.5, .5);
+    pros::delay(750);
+    drive->getModel()->tank(0, 0);
 }
 
 void opcontrol() {
@@ -29,8 +32,11 @@ void opcontrol() {
     buttonInterruptsTask.resume();
 
     while (true) { 
-        driveL.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::leftY)));
-        driveR.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::rightY)));
+        // tank drive
+        // driveL.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::leftY)));
+        // driveR.moveVoltage((int)(12000 * controller.getAnalog(ControllerAnalog::rightY)));
+        // arcade drive
+        drive->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX));
         pros::delay(20);
     }
 }
