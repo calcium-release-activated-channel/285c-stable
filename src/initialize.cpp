@@ -23,7 +23,7 @@ int8_t driveLUPort = 9;
 int8_t driveLBPort = 19;
 int8_t driveRFPort = 11;
 int8_t driveRUPort = 13;
-int8_t driveRBPort = 12;
+int8_t driveRBPort = 14;
 
 // auxiliary motors
 int8_t intakePort = 8;
