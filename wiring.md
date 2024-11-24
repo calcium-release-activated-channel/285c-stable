@@ -7,18 +7,19 @@
 - Left Back Drive   19
 - Right Front Drive 11
 - Right Upper Drive 13
-- Right Back Drive  14
+- Right Back Drive  15
 
 - Conveyer          5
-- Intake            8
+- Intake            20
 
 ## Sensors
 
-- Radio             Arbitrary
+- Radio             Arbitrary (21)
 
 ## 3-Wire
 
-- Mo-goal Solenoid  F
+- Mo-goal Solenoid  A
+- Auton Selector    B
 
 # Controls
 

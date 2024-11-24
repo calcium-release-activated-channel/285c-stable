@@ -23,14 +23,14 @@ int8_t driveLUPort = 9;
 int8_t driveLBPort = 19;
 int8_t driveRFPort = 11;
 int8_t driveRUPort = 13;
-int8_t driveRBPort = 14;
+int8_t driveRBPort = 15;
 
 // auxiliary motors
-int8_t intakePort = 8;
+int8_t intakePort = 20;
 int8_t conveyorPort = 5;
 
 // sensors (implicit conversion)
-uint8_t clampPort = 'F';
+uint8_t clampPort = 'A';
 /*** END PORTS AND CONTROLLER DECLARATIONS ***/
 
 // controller
