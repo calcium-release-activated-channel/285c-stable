@@ -26,7 +26,7 @@ int8_t driveRUPort = 13;
 int8_t driveRBPort = 15;
 
 // auxiliary motors
-int8_t intakePort = 20;
+int8_t intakePort = 16;
 int8_t conveyorPort = 5;
 
 // sensors (implicit conversion)
