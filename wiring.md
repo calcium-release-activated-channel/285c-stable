@@ -10,7 +10,7 @@
 - Right Back Drive  15
 
 - Conveyer          5
-- Intake            20
+- Intake            16
 
 ## Sensors
 
